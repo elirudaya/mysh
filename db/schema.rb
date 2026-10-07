@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_07_001256) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_07_094526) do
   create_table "checklists", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title"
@@ -41,6 +41,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_001256) do
     t.integer "capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 

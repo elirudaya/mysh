@@ -50,24 +50,24 @@ profiles = [
     name: "Анна",
     origin_country: "Россия",
     origin_city: "Москва",
-    current_country: "Германия",
-    current_city: "Берлин"
+    current_country: "Беларусь",
+    current_city: "Минск"
   },
   {
     user: User.find_by(email: "user_2@email.com"),
     name: "Иван",
-    origin_country: "Россия",
-    origin_city: "Казань",
-    current_country: "Сербия",
-    current_city: "Белград"
+    origin_country: "Беларусь",
+    origin_city: "Гомель",
+    current_country: "Россия",
+    current_city: "Санкт-Петербург"
   },
   {
     user: User.find_by(email: "user_3@email.com"),
-    name: "Мария",
+    name: "Соня",
     origin_country: "Россия",
-    origin_city: "Санкт-Петербург",
-    current_country: "Нидерланды",
-    current_city: "Амстердам"
+    origin_city: "Казань",
+    current_country: "Беларусь",
+    current_city: "Гродно"
   }
 ]
 
@@ -80,18 +80,18 @@ end
 posts = [
   {
     user: User.find_by(email: "user_1@email.com"),
-    title: "Моя поездка в Берлин",
-    body: "Рассказываю о своей поездке и интересных местах."
+    title: "выходные в Минске",
+    body: "лааллалала"
   },
   {
     user: User.find_by(email: "user_2@email.com"),
-    title: "Переезд в Белград",
-    body: "Небольшой рассказ о переезде в Сербию."
+    title: "поездка в СПБ",
+    body: "круто классно"
   },
   {
     user: User.find_by(email: "user_3@email.com"),
-    title: "Жизнь в Амстердаме",
-    body: "Делюсь своим опытом жизни в Нидерландах."
+    title: "поездка в Казань",
+    body: "оч красиво"
   }
 ]
 
@@ -105,11 +105,11 @@ end
 
 
 interests = [
-  { name: "Путешествия" },
-  { name: "Музыка" },
-  { name: "Кино" },
-  { name: "Искусство" },
-  { name: "Спорт" }
+  { name: "путешествия" },
+  { name: "музыка" },
+  { name: "кино" },
+  { name: "искусство" },
+  { name: "спорт" }
 ]
 
 interests.each do |interest|
@@ -121,19 +121,19 @@ end
 user_interests = [
   {
     user: User.find_by(email: "user_1@email.com"),
-    interest: Interest.find_by(name: "Путешествия")
+    interest: Interest.find_by(name: "путешествия")
   },
   {
     user: User.find_by(email: "user_1@email.com"),
-    interest: Interest.find_by(name: "Музыка")
+    interest: Interest.find_by(name: "музыка")
   },
   {
     user: User.find_by(email: "user_2@email.com"),
-    interest: Interest.find_by(name: "Спорт")
+    interest: Interest.find_by(name: "спорт")
   },
   {
     user: User.find_by(email: "user_3@email.com"),
-    interest: Interest.find_by(name: "Искусство")
+    interest: Interest.find_by(name: "искусство")
   }
 ]
 
@@ -147,12 +147,12 @@ friendships = [
   {
     user: User.find_by(email: "user_1@email.com"),
     friend_email: "user_2@email.com",
-    status: "accepted"
+    status: "в друзьях"
   },
   {
     user: User.find_by(email: "user_1@email.com"),
     friend_email: "user_3@email.com",
-    status: "pending"
+    status: "на обрбаотке"
   }
 ]
 
@@ -165,15 +165,15 @@ end
 subscriptions = [
   {
     user: User.find_by(email: "user_1@email.com"),
-    name: "Путешествия"
+    name: "путешествия"
   },
   {
     user: User.find_by(email: "user_1@email.com"),
-    name: "Жизнь в Германии"
+    name: "жизнь в Минске"
   },
   {
     user: User.find_by(email: "user_2@email.com"),
-    name: "Мероприятия"
+    name: "ивенты малиновка"
   }
 ]
 
@@ -186,19 +186,27 @@ end
 places = [
   {
     user: User.find_by(email: "user_1@email.com"),
-    name: "Community Cafe",
-    description: "Место для встреч сообщества",
-    city: "Берлин",
-    address: "Alexanderplatz",
-    category: "Кафе"
+    name: "парк Горького",
+    description: "близко к центру",
+    city: "Москва",
+    address: "Крымский Вал, 9",
+    category: "парк"
   },
   {
     user: User.find_by(email: "user_2@email.com"),
-    name: "Культурный центр",
-    description: "Место для мероприятий",
-    city: "Белград",
-    address: "Центр города",
-    category: "Культура"
+    name: "верхний город",
+    description: "история Минска",
+    city: "Минск",
+    address: "площадь Свободы",
+    category: "достопримечательность"
+  },
+  {
+    user: User.find_by(email: "user_3@email.com"),
+    name: "Кремль",
+    description: "история Казани",
+    city: "Казань",
+    address: "Кремлевская улица",
+    category: "Достопримечательность"
   }
 ]
 
@@ -210,21 +218,30 @@ end
 trips = [
   {
     user: User.find_by(email: "user_1@email.com"),
-    origin_city: "Берлин",
-    destination_city: "Прага",
+    origin_city: "Москва",
+    destination_city: "Минск",
     start_date: "2026-11-10",
     end_date: "2026-11-15",
-    trip_type: "Поездка",
-    transport: "Поезд"
+    trip_type: "отдых",
+    transport: "поезд"
   },
   {
     user: User.find_by(email: "user_2@email.com"),
-    origin_city: "Белград",
-    destination_city: "Будапешт",
+    origin_city: "Минск",
+    destination_city: "СПБ",
     start_date: "2026-12-01",
     end_date: "2026-12-05",
-    trip_type: "Поездка",
-    transport: "Автобус"
+    trip_type: "отдых",
+    transport: "поезд"
+  },
+  {
+    user: User.find_by(email: "user_3@email.com"),
+    origin_city: "Гродно",
+    destination_city: "Москва",
+    start_date: "2026-12-15",
+    end_date: "2026-12-20",
+    trip_type: "командировка",
+    transport: "автобус"
   }
 ]
 
