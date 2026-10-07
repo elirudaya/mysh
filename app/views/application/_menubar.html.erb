@@ -1,0 +1,25 @@
+<nav>
+  <%= link_to "Лента", root_path %>
+  <%= link_to "Места", places_path %>
+  <%= link_to "Поездки", trips_path %>
+  <%= link_to "Чек-листы", checklists_path %>
+  <%= link_to "Мероприятия", events_path %>
+
+  <span style="float: right;">
+    <% if user_signed_in? %>
+      <%= current_user.email %>
+      <% if current_user.profile %>
+        <%= link_to "Профиль", profile_path(current_user.profile) %>
+      <% end %>
+      <%= link_to "Выйти",
+          destroy_user_session_path,
+          data: { turbo_method: :delete } %>
+    <% else %>
+      <%= link_to "Войти", new_user_session_path %>
+      <%= link_to "Зарегистрироваться",
+          new_user_registration_path %>
+    <% end %>
+  </span>
+</nav>
+
+<hr>

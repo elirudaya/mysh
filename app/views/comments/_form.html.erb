@@ -1,0 +1,10 @@
+<%= form_with model: [@post, @post.comments.build] do |form| %>
+  <div>
+    <%= form.label :body, "Комментарий" %>
+    <%= form.text_field :body %>
+  </div>
+
+  <div>
+    <%= form.submit "Добавить комментарий" %>
+  </div>
+<% end %>

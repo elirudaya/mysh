@@ -1,0 +1,49 @@
+<%= form_with(model: trip) do |form| %>
+  <% if trip.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
+
+      <ul>
+        <% trip.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div>
+    <%= form.label :origin_city, style: "display: block" %>
+    <%= form.text_field :origin_city %>
+  </div>
+
+  <div>
+    <%= form.label :destination_city, style: "display: block" %>
+    <%= form.text_field :destination_city %>
+  </div>
+
+  <div>
+    <%= form.label :start_date, style: "display: block" %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date, style: "display: block" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.label :trip_type, style: "display: block" %>
+    <%= form.text_field :trip_type %>
+  </div>
+
+  <div>
+    <%= form.label :transport, style: "display: block" %>
+    <%= form.text_field :transport %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

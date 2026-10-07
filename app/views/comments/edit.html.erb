@@ -1,0 +1,16 @@
+<h1>Edit comment</h1>
+
+<%= form_with model: [@post, @comment] do |form| %>
+  <div>
+    <%= form.label :body, "Комментарий" %>
+    <%= form.text_field :body %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<br>
+
+<%= link_to "Back to post", post_path(@post) %>

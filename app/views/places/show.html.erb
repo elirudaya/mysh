@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @place %>
+
+<div>
+  <% if user_signed_in? && @place.user == current_user %>
+    <%= link_to "Edit this place", edit_place_path(@place) %> |
+    <%= link_to "Destroy this place", @place, data: { turbo_method: :delete } %> |
+  <% end %>
+
+  <%= link_to "Back to places", places_path %>
+</div>

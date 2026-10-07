@@ -1,0 +1,11 @@
+<% content_for :title, "New checklist" %>
+
+<h1>New checklist</h1>
+
+<%= render "form", checklist: @checklist %>
+
+<br>
+
+<div>
+  <%= link_to "Back to checklists", checklists_path %>
+</div>

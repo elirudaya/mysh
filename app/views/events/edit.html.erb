@@ -1,0 +1,11 @@
+<% content_for :title, "Editing event" %>
+
+<h1>Editing event</h1>
+
+<%= render "form", event: @event %>
+
+<br>
+
+<% if user_signed_in? %>
+  <%= link_to "New event", new_event_path %>
+<% end %>

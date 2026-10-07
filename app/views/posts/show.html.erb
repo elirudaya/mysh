@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @post %>
+
+<div>
+<% if user_signed_in? && @post.user == current_user %>
+  <%= link_to "Edit this post", edit_post_path(@post) %> |
+  <%= link_to "Destroy this post", @post, data: { turbo_method: :delete } %> |
+<% end %>
+
+<%= link_to "Back to posts", posts_path %>
+</div>
+
+<br><hr><br>
+
+<h2>Комментарии</h2>
+
+<%= render @post.comments %>
+
+<% if user_signed_in? %>
+  <h2>Добавить комментарий</h2>
+
+  <%= render "comments/form" %>
+<% else %>
+  <p>
+    <%= link_to "Войдите", new_user_session_path %>,
+    чтобы оставить комментарий.
+  </p>
+<% end %>

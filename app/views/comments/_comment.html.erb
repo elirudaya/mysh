@@ -1,0 +1,15 @@
+<div>
+  <p>
+    <strong><%= comment.user.email %>:</strong>
+    <%= comment.body %>
+  </p>
+
+  <% if user_signed_in? && comment.user == current_user %>
+    <%= link_to "Edit comment",
+        edit_post_comment_path(comment.post, comment) %> |
+
+    <%= link_to "Destroy comment",
+        post_comment_path(comment.post, comment),
+        data: { turbo_method: :delete } %>
+  <% end %>
+</div>
