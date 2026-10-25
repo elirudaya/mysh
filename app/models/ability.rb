@@ -13,18 +13,21 @@ class Ability
     can :read, Checklist
     can :read, Profile
 
-    if user.id
-      can :create, Post
-      can [ :edit, :update, :destroy ], Post, user_id: user.id
-      can :create, Comment
-      can [ :edit, :update, :destroy ], Comment, user_id: user.id
-      can :create, Place
-      can [ :edit, :update, :destroy ], Place, user_id: user.id
-      can :create, Trip
-      can [ :edit, :update, :destroy ], Trip, user_id: user.id
-      can :create, Event
-      can [ :edit, :update, :destroy ], Event, user_id: user.id
-      can [ :edit, :update ], Profile, user_id: user.id
+    return unless user.persisted?
+
+    can :create, Post
+    can [ :update, :destroy ], Post, user_id: user.id
+    can :create, Comment
+    can :destroy, Comment, user_id: user.id
+    can :update, Profile, user_id: user.id
+
+    if user.admin?
+      can [ :approve, :reject ], Post
+      can :destroy, Comment
+      can :manage, Place
+      can :manage, Trip
+      can :manage, Event
+      can :manage, Checklist
     end
     # Define abilities for the user here. For example:
     #

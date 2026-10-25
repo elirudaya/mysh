@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :user_interests
   resources :interests
   resources :posts do
-    resources :comments, only: [ :create, :edit, :update, :destroy ]
+    resources :comments, only: [ :create, :destroy ]
   end
   resources :profiles
   devise_for :users
