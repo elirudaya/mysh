@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_25_225754) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_25_233945) do
   create_table "checklists", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title"
@@ -30,6 +30,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_25_225754) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "address", null: false
+    t.boolean "consent", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address"], name: "index_emails_on_address", unique: true
   end
 
   create_table "events", force: :cascade do |t|

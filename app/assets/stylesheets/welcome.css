@@ -1,0 +1,60 @@
+.welcome {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9ff65;
+}
+
+.welcome-content {
+  max-width: 520px;
+  width: 100%;
+  padding: 40px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.welcome h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.welcome h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.welcome p {
+  line-height: 1.5;
+}
+
+.welcome .field {
+  margin: 20px 0;
+}
+
+.welcome input[type='email'] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #999;
+  border-radius: 8px;
+}
+
+.welcome input[type='submit'] {
+  padding: 12px 24px;
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.welcome .site-link {
+  margin-top: 24px;
+}
+
+.welcome .errors {
+  color: #b00020;
+}

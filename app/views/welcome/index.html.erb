@@ -1,0 +1,53 @@
+
+<main class="welcome">
+  <div class="welcome-content">
+    <h1>между</h1>
+
+    <h2>Переезды начинаются со знакомства</h2>
+
+    <p>
+      Медиа-сервис для тех, кто переезжает,
+      знакомится с новыми городами и ищет своих.
+    </p>
+
+    <p>
+      Оставь почту, чтобы первым узнать о запуске проекта.
+    </p>
+
+    <%= form_with model: @email, url: emails_path do |form| %>
+
+      <% if @email.errors.any? %>
+        <div class="errors">
+          <p>Проверь данные:</p>
+
+          <ul>
+            <% @email.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :address, "Электронная почта" %>
+
+        <%= form.email_field :address,
+              required: true,
+              placeholder: "example@mail.com" %>
+      </div>
+
+      <div class="field">
+        <%= form.check_box :consent, required: true %>
+
+        <%= form.label :consent,
+              "Я согласен(на) на обработку персональных данных" %>
+      </div>
+
+      <%= form.submit "Подписаться" %>
+    <% end %>
+
+    <p class="site-link">
+      <%= link_to "Перейти на сайт", home_path %>
+    </p>
+  </div>
+</main>

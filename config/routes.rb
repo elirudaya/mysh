@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "welcome/index"
   resources :events
   resources :checklists
   resources :trips
@@ -23,5 +24,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "posts#index"
+  post "emails", to: "welcome#create", as: :emails
+  get "home", to: "posts#index", as: :home
+  root "welcome#index"
 end
