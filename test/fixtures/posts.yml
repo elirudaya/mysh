@@ -4,8 +4,10 @@ one:
   user: one
   title: MyString
   body: MyText
+  status: approved
 
 two:
   user: two
   title: MyString
   body: MyText
+  status: pending

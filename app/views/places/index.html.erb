@@ -1,18 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Места" %>
 
-<% content_for :title, "Places" %>
+<h1>Места</h1>
 
-<h1>Places</h1>
+<% if user_signed_in? && current_user.admin? %>
+  <h2>Создать место</h2>
+  <%= render "form", place: @place %>
+<% end %>
+
+<h2>Опубликованные места</h2>
 
 <div id="places">
-  <% @places.each do |place| %>
-    <%= render place %>
-    <p>
-      <%= link_to "Show this place", place %>
-    </p>
+  <% if @places.any? %>
+    <% @places.each do |place| %>
+      <%= render place %>
+
+      <p>
+        <%= link_to "Посмотреть место", place_path(place) %>
+      </p>
+
+      <hr>
+    <% end %>
+  <% else %>
+    <p>Пока нет опубликованных мест</p>
   <% end %>
 </div>
-
-<% if user_signed_in? %>
-  <%= link_to "New place", new_place_path %>
-<% end %>

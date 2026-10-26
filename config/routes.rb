@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   get "welcome/index"
   resources :events
   resources :checklists
-  resources :trips
   resources :places
+  resources :trips
   resources :subscriptions
   resources :friendships
   resources :user_interests

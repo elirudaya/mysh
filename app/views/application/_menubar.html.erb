@@ -9,9 +9,9 @@
     <%= link_to "Главная", home_path %>
     <%= link_to "Лента", posts_path %>
     <% if user_signed_in? && current_user.admin? %>
-      <%= link_to "Гайды", new_checklist_path %>
-      <%= link_to "Афиша", new_event_path %>
-      <%= link_to "Места", new_place_path %>
+      <%= link_to "Гайды", checklists_path %>
+      <%= link_to "Афиша", events_path %>
+      <%= link_to "Места", places_path %>
     <% end %>
   </div>
 

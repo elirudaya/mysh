@@ -1,12 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<p><%= notice %></p>
+
+<h1>Место</h1>
 
 <%= render @place %>
 
-<div>
-  <% if user_signed_in? && @place.user == current_user %>
-    <%= link_to "Edit this place", edit_place_path(@place) %> |
-    <%= link_to "Destroy this place", @place, data: { turbo_method: :delete } %> |
-  <% end %>
+<% if user_signed_in? && current_user.admin? %>
+  <p>
+    <%= link_to "Редактировать место", edit_place_path(@place) %>
+  </p>
 
-  <%= link_to "Back to places", places_path %>
-</div>
+  <%= button_to "Удалить место",
+                place_path(@place),
+                method: :delete,
+                data: { turbo_confirm: "Удалить это место?" } %>
+<% end %>
+
+<p>
+  <%= link_to "Вернуться к местам", places_path %>
+</p>

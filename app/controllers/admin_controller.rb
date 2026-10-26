@@ -6,10 +6,10 @@ class AdminController < ApplicationController
 
   def index
     @users_count = User.count
-    @pending_posts_count = Post.pending.count
-    @places_count = Place.count
-    @events_count = Event.count
-    @guides_count = Checklist.count
+    @pending_posts_count = Post.pending.joins(:user).where(users: { admin: false }).count
+    @places_count = Place.joins(:user).where(users: { admin: true }).count
+    @events_count = Event.joins(:user).where(users: { admin: true }).count
+    @guides_count = Checklist.joins(:user).where(users: { admin: true }).count
 
     @posts = Post.order(created_at: :desc).limit(5)
     @users = User.order(created_at: :desc).limit(5)
@@ -20,7 +20,10 @@ class AdminController < ApplicationController
   end
 
   def posts
-    @posts = Post.pending.order(created_at: :desc)
+    @posts = Post.pending
+                .joins(:user)
+                .where(users: { admin: false })
+                .order(created_at: :desc)
   end
 
   def events

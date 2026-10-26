@@ -1,11 +1,7 @@
-<% content_for :title, "Editing event" %>
-
-<h1>Editing event</h1>
-
+<% content_for :title, "Редактировать мероприятие" %>
+<h1>Редактировать мероприятие</h1>
 <%= render "form", event: @event %>
-
-<br>
-
-<% if user_signed_in? %>
-  <%= link_to "New event", new_event_path %>
-<% end %>
+<div>
+  <%= link_to "Посмотреть мероприятие", event_path(@event) %> |
+  <%= link_to "Вернуться к афише", events_path %>
+</div>

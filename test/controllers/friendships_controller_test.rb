@@ -1,48 +1,42 @@
 require "test_helper"
 
 class FriendshipsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @friendship = friendships(:one)
-  end
-
-  test "should get index" do
+  test "guest cannot open friendships index" do
     get friendships_url
-    assert_response :success
+
+    assert_redirected_to new_user_session_url
   end
 
-  test "should get new" do
+  test "guest cannot open new friendship form" do
     get new_friendship_url
-    assert_response :success
+
+    assert_redirected_to new_user_session_url
   end
 
-  test "should create friendship" do
-    assert_difference("Friendship.count") do
-      post friendships_url, params: { friendship: { friend_email: @friendship.friend_email, status: @friendship.status, user_id: @friendship.user_id } }
+  test "guest cannot open friendship" do
+    get friendship_url(friendships(:one))
+
+    assert_redirected_to new_user_session_url
+  end
+
+  test "guest cannot create friendship" do
+    assert_no_difference("Friendship.count") do
+      post friendships_url, params: {
+        friendship: {
+          friend_email: "friend@example.com",
+          status: "pending"
+        }
+      }
     end
 
-    assert_redirected_to friendship_url(Friendship.last)
+    assert_redirected_to new_user_session_url
   end
 
-  test "should show friendship" do
-    get friendship_url(@friendship)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_friendship_url(@friendship)
-    assert_response :success
-  end
-
-  test "should update friendship" do
-    patch friendship_url(@friendship), params: { friendship: { friend_email: @friendship.friend_email, status: @friendship.status, user_id: @friendship.user_id } }
-    assert_redirected_to friendship_url(@friendship)
-  end
-
-  test "should destroy friendship" do
-    assert_difference("Friendship.count", -1) do
-      delete friendship_url(@friendship)
+  test "guest cannot delete friendship" do
+    assert_no_difference("Friendship.count") do
+      delete friendship_url(friendships(:one))
     end
 
-    assert_redirected_to friendships_url
+    assert_redirected_to new_user_session_url
   end
 end

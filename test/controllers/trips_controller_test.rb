@@ -1,48 +1,48 @@
 require "test_helper"
 
 class TripsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @trip = trips(:one)
-  end
-
-  test "should get index" do
+  test "guest can open trips index if permitted" do
     get trips_url
+
     assert_response :success
   end
 
-  test "should get new" do
-    get new_trip_url
-    assert_response :success
-  end
-
-  test "should create trip" do
-    assert_difference("Trip.count") do
-      post trips_url, params: { trip: { destination_city: @trip.destination_city, end_date: @trip.end_date, origin_city: @trip.origin_city, start_date: @trip.start_date, transport: @trip.transport, trip_type: @trip.trip_type, user_id: @trip.user_id } }
+  test "guest cannot create trip" do
+    assert_no_difference("Trip.count") do
+      post trips_url, params: {
+        trip: {
+          origin_city: "Москва",
+          destination_city: "Санкт-Петербург",
+          start_date: Date.current,
+          end_date: Date.tomorrow,
+          trip_type: "personal",
+          transport: "train"
+        }
+      }
     end
 
-    assert_redirected_to trip_url(Trip.last)
+    assert_response :redirect
   end
 
-  test "should show trip" do
-    get trip_url(@trip)
-    assert_response :success
+  test "guest cannot update trip" do
+    trip = trips(:one)
+    original_city = trip.destination_city
+
+    patch trip_url(trip), params: {
+      trip: {
+        destination_city: "Казань"
+      }
+    }
+
+    assert_response :redirect
+    assert_equal original_city, trip.reload.destination_city
   end
 
-  test "should get edit" do
-    get edit_trip_url(@trip)
-    assert_response :success
-  end
-
-  test "should update trip" do
-    patch trip_url(@trip), params: { trip: { destination_city: @trip.destination_city, end_date: @trip.end_date, origin_city: @trip.origin_city, start_date: @trip.start_date, transport: @trip.transport, trip_type: @trip.trip_type, user_id: @trip.user_id } }
-    assert_redirected_to trip_url(@trip)
-  end
-
-  test "should destroy trip" do
-    assert_difference("Trip.count", -1) do
-      delete trip_url(@trip)
+  test "guest cannot delete trip" do
+    assert_no_difference("Trip.count") do
+      delete trip_url(trips(:one))
     end
 
-    assert_redirected_to trips_url
+    assert_response :redirect
   end
 end

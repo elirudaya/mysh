@@ -1,10 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<p><%= notice %></p>
+
+<h1>Гайд</h1>
 
 <%= render @checklist %>
 
-<div>
-  <%= link_to "Edit this checklist", edit_checklist_path(@checklist) %> |
-  <%= link_to "Back to checklists", checklists_path %>
+<% if user_signed_in? && current_user.admin? %>
+  <p>
+    <%= link_to "Редактировать гайд", edit_checklist_path(@checklist) %>
+  </p>
 
-  <%= button_to "Destroy this checklist", @checklist, method: :delete %>
-</div>
+  <%= button_to "Удалить гайд",
+                checklist_path(@checklist),
+                method: :delete,
+                data: { turbo_confirm: "Удалить этот гайд?" } %>
+<% end %>
+
+<p>
+  <%= link_to "Вернуться к гайдам", checklists_path %>
+</p>

@@ -1,16 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Гайды" %>
 
-<% content_for :title, "Checklists" %>
+<h1>Гайды</h1>
 
-<h1>Checklists</h1>
+<% if user_signed_in? && current_user.admin? %>
+  <h2>Создать гайд</h2>
+  <%= render "form", checklist: @checklist %>
+<% end %>
+
+<h2>Опубликованные гайды</h2>
 
 <div id="checklists">
-  <% @checklists.each do |checklist| %>
-    <%= render checklist %>
-    <p>
-      <%= link_to "Show this checklist", checklist %>
-    </p>
+  <% if @checklists.any? %>
+    <% @checklists.each do |checklist| %>
+      <%= render checklist %>
+
+      <p>
+        <%= link_to "Посмотреть гайд", checklist_path(checklist) %>
+      </p>
+
+      <hr>
+    <% end %>
+  <% else %>
+    <p>Пока нет опубликованных гайдов</p>
   <% end %>
 </div>
-
-<%= link_to "New checklist", new_checklist_path %>

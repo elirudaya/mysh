@@ -1,46 +1,48 @@
+<p style="color: green"><%= notice %></p>
+<% content_for :title, "Лента" %>
+
 <h1>Лента</h1>
+
 <% if user_signed_in? %>
-  <p>
-    <%= link_to "Написать пост", new_post_path %>
-    |
-    <%= link_to "Мои посты", mine_posts_path %>
-  </p>
+  <h2>Написать пост</h2>
+  <%= render "form", post: @post %>
 
-  <% if current_user.admin? %>
-    <p>
-      <%= link_to "Посты на модерации",
-            review_posts_path %>
-    </p>
-  <% end %>
-<% else %>
-  <p>
-    <%= link_to "Войти", new_user_session_path %>,
-    чтобы написать пост.
-  </p>
+  <p><%= link_to "Мои посты", mine_posts_path %></p>
 <% end %>
 
-<hr>
+<h2>Публикации</h2>
 
-<% if @posts.any? %>
-  <% @posts.each do |post| %>
-    <article>
-      <h2>
-        <%= link_to post.title, post_path(post) %>
-      </h2>
+<div id="posts">
+  <% if @feed_items.any? %>
+    <% @feed_items.each do |item| %>
 
-      <p>
-        Автор:
-        <%= post.user.profile&.name.presence ||
-              "автор" %>
-      </p>
+      <% if item.is_a?(Post) %>
+        <h2>Пост</h2>
+        <%= render item %>
+        <p><%= link_to "Читать пост", post_path(item) %></p>
 
-      <p>
-        <%= truncate(post.body, length: 200) %>
-      </p>
-    </article>
+      <% elsif item.is_a?(Event) %>
+        <h2>Афиша</h2>
+        <h3><%= item.title %></h3>
+        <p><%= item.description %></p>
+        <p><%= link_to "Подробнее", event_path(item) %></p>
 
-    <hr>
+      <% elsif item.is_a?(Checklist) %>
+        <h2>Гайд</h2>
+        <h3><%= item.title %></h3>
+        <p><%= truncate(item.content.to_s, length: 200) %></p>
+        <p><%= link_to "Читать гайд", checklist_path(item) %></p>
+
+      <% elsif item.is_a?(Place) %>
+        <h2>Место</h2>
+        <h3><%= item.name %></h3>
+        <p><%= item.description %></p>
+        <p><%= link_to "Подробнее", place_path(item) %></p>
+      <% end %>
+
+      <hr>
+    <% end %>
+  <% else %>
+    <p>Пока нет публикаций</p>
   <% end %>
-<% else %>
-  <p>Пока ничего не опубликовано</p>
-<% end %>
+</div>

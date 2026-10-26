@@ -1,72 +1,70 @@
 class EventsController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[ index show ]
-  # GET /events or /events.json
+  layout "application"
+
+  before_action :authenticate_user!,
+                except: [ :index, :show ]
+
+  before_action :set_event,
+                only: [ :show, :edit, :update, :destroy ]
+
   def index
-    @events = Event.all
-  end
+    @events = Event.joins(:user)
+                  .where(users: { admin: true })
+                  .order(created_at: :desc)
 
-  # GET /events/1 or /events/1.json
-  def show
-  end
-
-  # GET /events/new
-  def new
     @event = Event.new
   end
 
-  # GET /events/1/edit
+  def show
+    authorize! :read, @event
+  end
+
+  def new
+    @event = Event.new
+    authorize! :create, @event
+  end
+
   def edit
+    authorize! :update, @event
   end
 
-  # POST /events or /events.json
   def create
-    @event = Event.new(event_params)
-    @event.user = current_user
+    @event = current_user.events.new(event_params)
+    authorize! :create, @event
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: "Event was successfully created." }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @event.errors, status: :unprocessable_content }
-      end
+    if @event.save
+      redirect_to @event, notice: "Мероприятие опубликовано"
+    else
+      render :new, status: :unprocessable_content
     end
   end
 
-  # PATCH/PUT /events/1 or /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to @event, notice: "Event was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @event }
-      else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @event.errors, status: :unprocessable_content }
-      end
+    authorize! :update, @event
+
+    if @event.update(event_params)
+      redirect_to @event, notice: "Изменения сохранены"
+    else
+      render :edit, status: :unprocessable_content
     end
   end
 
-  # DELETE /events/1 or /events/1.json
   def destroy
+    authorize! :destroy, @event
     @event.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to events_path, notice: "Event was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    redirect_to events_path, notice: "Мероприятие удалено"
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def event_params
-      params.expect(event: [ :title, :description, :date, :city, :address, :capacity ])
-    end
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
+  def event_params
+    params.require(:event).permit(
+      :title, :description, :date,
+      :city, :address, :capacity
+    )
+  end
 end

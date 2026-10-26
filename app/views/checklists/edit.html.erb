@@ -1,12 +1,7 @@
-<% content_for :title, "Editing checklist" %>
-
-<h1>Editing checklist</h1>
-
+<% content_for :title, "Редактировать гайд" %>
+<h1>Редактировать гайд</h1>
 <%= render "form", checklist: @checklist %>
-
-<br>
-
 <div>
-  <%= link_to "Show this checklist", @checklist %> |
-  <%= link_to "Back to checklists", checklists_path %>
+  <%= link_to "Посмотреть гайд", checklist_path(@checklist) %> |
+  <%= link_to "Вернуться к гайдам", checklists_path %>
 </div>

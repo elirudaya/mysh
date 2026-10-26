@@ -1,73 +1,70 @@
 class PlacesController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_place, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[ index show ]
+  layout "application"
 
-  # GET /places or /places.json
+  before_action :authenticate_user!,
+                except: [ :index, :show ]
+
+  before_action :set_place,
+                only: [ :show, :edit, :update, :destroy ]
+
   def index
-    @places = Place.all
-  end
+    @places = Place.joins(:user)
+                  .where(users: { admin: true })
+                  .order(created_at: :desc)
 
-  # GET /places/1 or /places/1.json
-  def show
-  end
-
-  # GET /places/new
-  def new
     @place = Place.new
   end
 
-  # GET /places/1/edit
+  def show
+    authorize! :read, @place
+  end
+
+  def new
+    @place = Place.new
+    authorize! :create, @place
+  end
+
   def edit
+    authorize! :update, @place
   end
 
-  # POST /places or /places.json
   def create
-    @place = Place.new(place_params)
-    @place.user = current_user
+    @place = current_user.places.new(place_params)
+    authorize! :create, @place
 
-    respond_to do |format|
-      if @place.save
-        format.html { redirect_to @place, notice: "Place was successfully created." }
-        format.json { render :show, status: :created, location: @place }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @place.errors, status: :unprocessable_content }
-      end
+    if @place.save
+      redirect_to @place, notice: "Место опубликовано"
+    else
+      render :new, status: :unprocessable_content
     end
   end
 
-  # PATCH/PUT /places/1 or /places/1.json
   def update
-    respond_to do |format|
-      if @place.update(place_params)
-        format.html { redirect_to @place, notice: "Place was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @place }
-      else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @place.errors, status: :unprocessable_content }
-      end
+    authorize! :update, @place
+
+    if @place.update(place_params)
+      redirect_to @place, notice: "Изменения сохранены"
+    else
+      render :edit, status: :unprocessable_content
     end
   end
 
-  # DELETE /places/1 or /places/1.json
   def destroy
+    authorize! :destroy, @place
     @place.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to places_path, notice: "Place was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    redirect_to places_path, notice: "Место удалено"
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_place
-      @place = Place.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def place_params
-      params.expect(place: [ :name, :description, :city, :address, :category ])
-    end
+  def set_place
+    @place = Place.find(params[:id])
+  end
+
+  def place_params
+    params.require(:place).permit(
+      :name, :description, :city,
+      :address, :category
+    )
+  end
 end
