@@ -1,0 +1,56 @@
+.site-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 1% 6%;
+  background: white;
+  font-family: Arial, sans-serif;
+}
+
+.site-menu-left,
+.site-menu-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-menu a {
+  color: #151515;
+  text-decoration: none;
+}
+
+.site-menu .site-logo {
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.site-menu .site-register {
+  background: #145dff;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 24px;
+}
+
+.site-logout {
+  border: none;
+  background: #145dff;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .site-menu {
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+
+  .site-menu-left,
+  .site-menu-right {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+}

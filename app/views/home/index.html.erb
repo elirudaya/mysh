@@ -1,0 +1,80 @@
+
+<main class="home-page">
+  <section class="home-main">
+    <div class="home-main-text">
+      <p class="home-label">Медиа о жизни в новой стране</p>
+
+      <h1>Между здесь и там открывай мир сам</h1>
+
+      <p>
+        Истории, гайды и люди, которые помогают освоиться
+      </p>
+
+      <%= link_to "Читать ленту", posts_path,
+            class: "home-button" %>
+    </div>
+  </section>
+
+  <section class="home-about">
+    <h2>Что такое «между»?</h2>
+
+    <p>
+        Это пространство для тех, кто переезжает,
+        открывает новые города и ищет людей,
+        с которыми можно почувствовать себя дома.
+    </p>
+
+    <p>
+        Мы создаём место, где можно делиться
+        своим опытом, узнавать о жизни в других
+        городах и находить полезную информацию.
+    </p>
+  </section>
+
+  <section class="home-features">
+    <h2>Что можно делать на сайте?</h2>
+
+    <div class="home-cards">
+      <article class="home-card">
+        <h3>Читать истории</h3>
+        <p>
+          Узнавать об опыте переезда других людей.
+        </p>
+      </article>
+
+      <article class="home-card">
+        <h3>Делиться своим</h3>
+        <p>
+          Публиковать собственные посты
+          и обсуждать их с другими.
+        </p>
+      </article>
+
+      <article class="home-card">
+        <h3>Открывать новое</h3>
+        <p>
+          Читать гайды и узнавать
+          о событиях из афиши.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-bottom">
+    <h2>У каждого переезда своя история</h2>
+
+    <p>
+      Возможно, твоя история поможет
+      кому-то почувствовать себя увереннее.
+    </p>
+
+    <% if user_signed_in? %>
+      <%= link_to "Написать пост", new_post_path,
+            class: "home-button" %>
+    <% else %>
+      <%= link_to "Присоединиться",
+            new_user_registration_path,
+            class: "home-button" %>
+    <% end %>
+  </section>
+</main>

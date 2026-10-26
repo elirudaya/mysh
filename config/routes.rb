@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "home/index"
   get "welcome/index"
   resources :events
   resources :checklists
@@ -25,6 +26,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   post "emails", to: "welcome#create", as: :emails
-  get "home", to: "posts#index", as: :home
+  get "home", to: "home#index", as: :home
   root "welcome#index"
 end

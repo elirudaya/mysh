@@ -1,0 +1,127 @@
+.home-page {
+  font-family: Arial, sans-serif;
+  color: #151515;
+}
+
+.home-main {
+  background: #d9ff65;
+  padding: 120px 8% 80px 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-main-text {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #7d8592;
+  margin-bottom: 2px;
+}
+
+.home-main h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.home-main p {
+  font-size: 18px;
+  color: #505661;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #145dff;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.home-button:hover {
+  background: #222222;
+}
+
+.home-about,
+.home-features,
+.home-bottom {
+  padding: 80px 8%;
+}
+
+.home-about {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.home-about h2,
+.home-features h2,
+.home-bottom h2 {
+  font-size: 36px;
+  margin-bottom: 24px;
+}
+
+.home-about p,
+.home-bottom p {
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.home-features {
+  background: #f3f3f3;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.home-card {
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+}
+
+.home-card h3 {
+  font-size: 24px;
+}
+
+.home-card p {
+  line-height: 1.5;
+}
+
+.home-bottom {
+  background: #f4f7fe;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .home-main {
+    padding: 80px 20px 50px 20px;
+  }
+
+  .home-about,
+  .home-features,
+  .home-bottom {
+    padding: 50px 20px;
+  }
+
+  .home-cards {
+    grid-template-columns: 1fr;
+  }
+}

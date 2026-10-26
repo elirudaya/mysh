@@ -24,7 +24,9 @@
   </head>
 
   <body>
-    <%= render "application/menubar" %>
+    <% unless controller_name == "welcome" %>
+      <%= render "application/menubar" %>
+    <% end %>
     <%= yield %>
     
   </body>
