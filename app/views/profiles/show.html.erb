@@ -1,66 +1,58 @@
-<h1>Профиль</h1>
+<main>
+  <h1>Профиль</h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @profile.user.email %>
-</p>
+  <section>
+    <h2>О себе</h2>
 
-<p>
-  <strong>Имя:</strong>
-  <%= @profile.name %>
-</p>
+    <p>
+      <strong>Имя:</strong>
+      <%= @profile.name || "Не указано" %>
+    </p>
 
-<p>
-  <strong>Страна происхождения:</strong>
-  <%= @profile.origin_country %>
-</p>
+    <p>
+      <strong>Возраст:</strong>
+      <%= @profile.age || "Не указан" %>
+    </p>
 
-<p>
-  <strong>Город происхождения:</strong>
-  <%= @profile.origin_city %>
-</p>
+    <p>
+      <strong>Откуда:</strong>
+      <%= [@profile.origin_city, @profile.origin_country]
+            .reject(&:blank?).join(", ").presence || "Не указано" %>
+    </p>
 
-<p>
-  <strong>Текущая страна:</strong>
-  <%= @profile.current_country %>
-</p>
+    <p>
+      <strong>Сейчас проживает:</strong>
+      <%= [@profile.current_city, @profile.current_country]
+            .reject(&:blank?).join(", ").presence || "Не указано" %>
+    </p>
 
-<p>
-  <strong>Текущий город:</strong>
-  <%= @profile.current_city %>
-</p>
+    <p>
+      <strong>Соцсети:</strong>
+      <%= @profile.social.presence || "Не указаны" %>
+    </p>
+  </section>
 
-<% if user_signed_in? && @profile.user == current_user %>
-  <%= link_to "Edit this profile", edit_profile_path(@profile) %>
-<% end %>
+  <section>
+    <h2>Посты</h2>
 
-<br><hr><br>
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <p>
+          <%= link_to post.title, post_path(post) %>
+        </p>
+      <% end %>
+    <% else %>
+      <p>Пока нет постов</p>
+    <% end %>
+  </section>
 
-<h2>Интересы</h2>
+  <nav>
+    <% if user_signed_in? && current_user == @profile.user %>
+      <%= link_to "Редактировать профиль",
+            edit_profile_path(@profile) %>
+      |
+    <% end %>
 
-<% @profile.user.user_interests.each do |user_interest| %>
-  <p><%= user_interest.interest.name %></p>
-<% end %>
-
-<h2>Друзья</h2>
-
-<% @profile.user.friendships.each do |friendship| %>
-  <p>
-    <%= friendship.friend_email %> —
-    <%= friendship.status %>
-  </p>
-<% end %>
-
-<h2>Подписки</h2>
-
-<% @profile.user.subscriptions.each do |subscription| %>
-  <p><%= subscription.name %></p>
-<% end %>
-
-<h2>Посты</h2>
-
-<% @profile.user.posts.each do |post| %>
-  <p>
-    <%= link_to post.title, post_path(post) %>
-  </p>
-<% end %>
+    <%= link_to "На главную", home_path %>
+  </nav>
+</main>

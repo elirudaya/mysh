@@ -1,71 +1,47 @@
 class ProfilesController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_profile, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: [ :edit, :update ]
+  before_action :set_profile, only: [ :show, :edit, :update ]
 
-  # GET /profiles or /profiles.json
-  def index
-    @profiles = Profile.all
-  end
-
-  # GET /profiles/1 or /profiles/1.json
   def show
+    authorize! :read, @profile
+
+    @posts = @profile.user.posts.order(created_at: :desc)
+
+    unless user_signed_in? && current_user == @profile.user
+      @posts = @posts.none
+    end
   end
 
-  # GET /profiles/new
-  def new
-    @profile = Profile.new
-  end
-
-  # GET /profiles/1/edit
   def edit
+    authorize! :update, @profile
   end
 
-  # POST /profiles or /profiles.json
-  def create
-    @profile = Profile.new(profile_params)
-
-    respond_to do |format|
-      if @profile.save
-        format.html { redirect_to @profile, notice: "Profile was successfully created." }
-        format.json { render :show, status: :created, location: @profile }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @profile.errors, status: :unprocessable_content }
-      end
-    end
-  end
-
-  # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
-    respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: "Profile was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @profile }
-      else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @profile.errors, status: :unprocessable_content }
-      end
-    end
-  end
+    authorize! :update, @profile
 
-  # DELETE /profiles/1 or /profiles/1.json
-  def destroy
-    @profile.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to profiles_path, notice: "Profile was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+    if @profile.update(profile_params)
+      redirect_to @profile, notice: "Профиль обновлён."
+    else
+      render :edit, status: :unprocessable_content
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def profile_params
-      params.expect(profile: [ :name, :origin_country, :origin_city, :current_country, :current_city ])
-    end
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
+
+  def profile_params
+    params.require(:profile).permit(
+      :name,
+      :age,
+      :origin_country,
+      :origin_city,
+      :current_country,
+      :current_city,
+      :social
+    )
+  end
 end
