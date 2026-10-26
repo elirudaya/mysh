@@ -2,15 +2,17 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [ :edit, :update ]
   before_action :set_profile, only: [ :show, :edit, :update ]
 
+
   def show
     authorize! :read, @profile
 
-    @posts = @profile.user.posts.order(created_at: :desc)
-
-    unless user_signed_in? && current_user == @profile.user
-      @posts = @posts.none
+    if user_signed_in? && current_user == @profile.user
+      @posts = @profile.user.posts.order(created_at: :desc)
+    else
+      @posts = @profile.user.posts.approved.order(created_at: :desc)
     end
   end
+
 
   def edit
     authorize! :update, @profile

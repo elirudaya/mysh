@@ -1,0 +1,38 @@
+<h1>Мои посты</h1>
+
+<p>
+  <%= link_to "Написать пост", new_post_path %>
+  |
+  <%= link_to "Перейти в ленту", posts_path %>
+</p>
+
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+    <article>
+      <h2>
+        <%= link_to post.title, post_path(post) %>
+      </h2>
+
+      <p>
+        <strong>Статус:</strong>
+
+        <% if post.status == "pending" %>
+          На модерации
+        <% elsif post.status == "approved" %>
+          Одобрен
+        <% else %>
+          Отклонен
+        <% end %>
+      </p>
+
+      <p>
+        <%= link_to "Редактировать",
+              edit_post_path(post) %>
+      </p>
+    </article>
+
+    <hr>
+  <% end %>
+<% else %>
+  <p>Пока нет постов</p>
+<% end %>

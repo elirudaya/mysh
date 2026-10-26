@@ -1,44 +1,64 @@
 class CommentsController < ApplicationController
-  load_and_authorize_resource
   before_action :authenticate_user!
+  before_action :set_post
+  before_action :set_comment, only: [ :edit, :update, :destroy ]
 
   def create
-    @post = Post.find(params[:post_id])
+    authorize! :read, @post
+    authorize! :create, Comment
+
+    unless @post.status == "approved"
+      redirect_to posts_path,
+                  alert: "Этот пост еще не опубликован"
+      return
+    end
+
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
 
     if @comment.save
-      redirect_to @post
+      redirect_to @post, notice: "Комментарий добавлен"
     else
-      redirect_to @post
+      redirect_to @post, alert: "Напиши текст для комментария"
     end
   end
 
   def edit
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
+    authorize! :update, @comment
+    authorize! :read, @post
   end
 
   def update
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
+    authorize! :update, @comment
+    authorize! :read, @post
 
     if @comment.update(comment_params)
-      redirect_to @post
+      redirect_to @post, notice: "Комментарий изменен"
     else
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
-    @comment.destroy
+    authorize! :destroy, @comment
+    authorize! :read, @post
 
-    redirect_to @post
+    @comment.destroy!
+
+    redirect_to @post,
+                notice: "Комментарий был удален",
+                status: :see_other
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
+
+  def set_comment
+    @comment = @post.comments.find(params[:id])
+  end
 
   def comment_params
     params.require(:comment).permit(:body)

@@ -1,18 +1,46 @@
-<p style="color: green"><%= notice %></p>
+<h1>Лента</h1>
+<% if user_signed_in? %>
+  <p>
+    <%= link_to "Написать пост", new_post_path %>
+    |
+    <%= link_to "Мои посты", mine_posts_path %>
+  </p>
 
-<% content_for :title, "Posts" %>
-
-<h1>Posts</h1>
-
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
+  <% if current_user.admin? %>
     <p>
-      <%= link_to "Show this post", post %>
+      <%= link_to "Посты на модерации",
+            review_posts_path %>
     </p>
   <% end %>
-</div>
+<% else %>
+  <p>
+    <%= link_to "Войти", new_user_session_path %>,
+    чтобы написать пост.
+  </p>
+<% end %>
 
-<% if user_signed_in? %>
-  <%= link_to "New post", new_post_path %>
+<hr>
+
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+    <article>
+      <h2>
+        <%= link_to post.title, post_path(post) %>
+      </h2>
+
+      <p>
+        Автор:
+        <%= post.user.profile&.name.presence ||
+              "автор" %>
+      </p>
+
+      <p>
+        <%= truncate(post.body, length: 200) %>
+      </p>
+    </article>
+
+    <hr>
+  <% end %>
+<% else %>
+  <p>Пока ничего не опубликовано</p>
 <% end %>

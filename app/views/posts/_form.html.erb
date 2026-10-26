@@ -1,29 +1,33 @@
+
 <%= form_with(model: post) do |form| %>
+
   <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <div>
+      <p>Проверь данные:</p>
 
       <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <p>
+    <%= form.label :title, "Заголовок" %>
+    <%= form.text_field :title, required: true %>
+  </p>
 
+  <p>
+    <%= form.label :body, "Текст поста" %>
+    <%= form.text_area :body, rows: 10, required: true %>
+  </p>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+  <p>
+    После сохранения пост 
+    отправится на модерацию.
+  </p>
 
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.textarea :body %>
-  </div>
+  <%= form.submit "Сохранить" %>
 
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

@@ -9,9 +9,20 @@ Rails.application.routes.draw do
   resources :friendships
   resources :user_interests
   resources :interests
+
+
   resources :posts do
-    resources :comments, only: [ :create, :destroy ]
+    collection do
+      get :mine
+      get :review
+    end
+    member do
+      patch :approve
+      patch :reject
+    end
+      resources :comments, only: [ :create, :edit, :update, :destroy ]
   end
+
   resources :profiles, only: [ :show, :edit, :update ]
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,0 +1,35 @@
+<h1>Посты на модерации</h1>
+
+<p>
+  <%= link_to "Вернуться в ленту", posts_path %>
+</p>
+
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+    <article>
+      <h2>
+        <%= link_to post.title, post_path(post) %>
+      </h2>
+
+      <p>
+        Автор: <%= post.user.email %>
+      </p>
+
+      <p>
+        <%= post.body %>
+      </p>
+
+      <%= button_to "Одобрить",
+            approve_post_path(post),
+            method: :patch %>
+
+      <%= button_to "Отклонить",
+            reject_post_path(post),
+            method: :patch %>
+    </article>
+
+    <hr>
+  <% end %>
+<% else %>
+  <p>Нет постов для проверки</p>
+<% end %>
