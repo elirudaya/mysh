@@ -1,0 +1,99 @@
+<h1>Панель администратора</h1>
+<h2>Статистика</h2>
+<ul>
+  <li>
+    Пользователей:
+    <strong><%= @users_count %></strong>
+  </li>
+  <li>
+    Постов на проверке:
+    <strong><%= @pending_posts_count %></strong>
+  </li>
+  <li>
+    Гайдов:
+    <strong><%= @guides_count %></strong>
+  </li>
+  <li>
+    Мест:
+    <strong><%= @places_count %></strong>
+  </li>
+  <li>
+    Мероприятий в афише:
+    <strong><%= @events_count %></strong>
+  </li>
+</ul>
+
+<hr>
+
+<h2>Последние посты</h2>
+<% if @posts.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+            <%= link_to post.title, post_path(post) %>
+          </td>
+          <td><%= post.user.email %></td>
+          <td>
+            <% case post.status %>
+            <% when "pending" %>
+              На проверке
+            <% when "approved" %>
+              Одобрен
+            <% when "rejected" %>
+              Отклонен
+            <% else %>
+              <%= post.status %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Постов пока нет</p>
+<% end %>
+<p>
+  <%= link_to "Перейти к модерации постов", admin_posts_path %>
+</p>
+
+<hr>
+
+<h2>Последние пользователи</h2>
+<% if @users.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Имя</th>
+        <th>Роль</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td>
+            <%= user.profile&.name.presence || "Не указано" %>
+          </td>
+          <td>
+            <%= user.admin? ? "Администратор" : "Пользователь" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Пользователей пока нет</p>
+<% end %>
+<p>
+  <%= link_to "Все пользователи", admin_users_path %>
+</p>

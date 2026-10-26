@@ -1,0 +1,27 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 24px;
+  border-right: 1px solid #dddddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar nav {
+  flex-grow: 1;
+}
+
+.admin-sidebar-bottom {
+  margin-top: auto;
+}
+
+.admin-content {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 32px;
+}

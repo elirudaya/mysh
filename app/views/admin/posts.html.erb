@@ -1,0 +1,24 @@
+<h1>Посты на модерации</h1>
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+    <article>
+      <h2><%= post.title %></h2>
+      <p>
+        Автор: <%= post.user.email %>
+      </p>
+      <p><%= post.body %></p>
+      <p>Статус: На проверке</p>
+      <%= button_to "Одобрить",
+            approve_post_path(post),
+            method: :patch %>
+      <%= button_to "Отклонить",
+            reject_post_path(post),
+            method: :patch %>
+
+      <hr>
+
+    </article>
+  <% end %>
+<% else %>
+  <p>Сейчас нет постов для проверки</p>
+<% end %>

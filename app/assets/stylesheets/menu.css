@@ -1,56 +1,43 @@
 .site-menu {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 1% 6%;
-  background: white;
-  font-family: Arial, sans-serif;
+  gap: 24px;
+  padding: 20px 6%;
 }
 
-.site-menu-left,
+.site-menu-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.site-menu-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  white-space: nowrap;
+}
+
 .site-menu-right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 24px;
+  white-space: nowrap;
 }
 
-.site-menu a {
-  color: #151515;
-  text-decoration: none;
-}
-
-.site-menu .site-logo {
-  font-size: 28px;
-  font-weight: bold;
-  margin-right: 20px;
-}
-
-.site-menu .site-register {
-  background: #145dff;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 24px;
-}
-
-.site-logout {
-  border: none;
-  background: #145dff;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 24px;
-  cursor: pointer;
-}
-
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
   .site-menu {
-    flex-wrap: wrap;
-    padding: 16px 20px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .site-menu-left,
+  .site-menu-center,
   .site-menu-right {
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 14px;
   }
 }

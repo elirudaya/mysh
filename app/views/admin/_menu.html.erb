@@ -1,0 +1,20 @@
+<aside class="admin-sidebar">
+  <h2>между</h2>
+  <p>Панель управления</p>
+  <nav>
+    <p><%= link_to "Главная", admin_path %></p>
+    <p><%= link_to "Пользователи", admin_users_path %></p>
+    <h3>Контент</h3>
+    <p><%= link_to "Посты", admin_posts_path %></p>
+    <p><%= link_to "Гайды", admin_guides_path %></p>
+    <p><%= link_to "Афиша", admin_events_path %></p>
+    <p><%= link_to "Места", admin_places_path %></p>
+  </nav>
+  <div class="admin-sidebar-bottom">
+    <p><%= link_to "Перейти на сайт", home_path %></p>
+    <p><%= current_user.email %></p>
+    <%= button_to "Выйти",
+          destroy_user_session_path,
+          method: :delete %>
+  </div>
+</aside>

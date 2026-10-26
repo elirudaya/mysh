@@ -76,18 +76,18 @@ class PostsController < ApplicationController
     authorize! :approve, @post
 
     @post.update!(status: "approved")
-    redirect_to review_posts_path,
-                notice: "Пост одобрен.",
-                status: :see_other
+    redirect_to admin_posts_path,
+            notice: "Пост одобрен.",
+            status: :see_other
   end
 
   def reject
     authorize! :reject, @post
 
     @post.update!(status: "rejected")
-    redirect_to review_posts_path,
-                notice: "Пост отклонён.",
-                status: :see_other
+    redirect_to admin_posts_path,
+            notice: "Пост отклонён.",
+            status: :see_other
   end
 
   private
