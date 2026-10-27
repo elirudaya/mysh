@@ -6,33 +6,21 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :read, Post, status: "approved"
-    can :read, Profile
-    can :read, Place
-    can :read, Trip
-    can :read, Event
-    can :read, Checklist
-
     return unless user.persisted?
 
+    can :read, Post
     can :create, Post
-    can [ :read, :update, :destroy ], Post,
-        user_id: user.id
+    can [ :update, :destroy ], Post, user_id: user.id
+
+    can :read, Profile
+    can :update, Profile, user_id: user.id
+
     can :create, Comment
     can [ :update, :destroy ], Comment, user_id: user.id
 
-    can :update, Profile, user_id: user.id
-
     if user.admin?
-      can :read, Post
-      can [ :approve, :reject ], Post
-
+      can :destroy, Post
       can :destroy, Comment
-
-      can :manage, Place
-      can :manage, Trip
-      can :manage, Event
-      can :manage, Checklist
     end
     # Define abilities for the user here. For example:
     #

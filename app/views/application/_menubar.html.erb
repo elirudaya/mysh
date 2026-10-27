@@ -8,11 +8,6 @@
   <div class="site-menu-center">
     <%= link_to "Главная", home_path %>
     <%= link_to "Лента", posts_path %>
-    <% if user_signed_in? && current_user.admin? %>
-      <%= link_to "Гайды", checklists_path %>
-      <%= link_to "Афиша", events_path %>
-      <%= link_to "Места", places_path %>
-    <% end %>
   </div>
 
   <div class="site-menu-right">

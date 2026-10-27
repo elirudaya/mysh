@@ -1,0 +1,9 @@
+<h1>Оставленные заявки</h1>
+
+<% if @emails.any? %>
+  <% @emails.each do |email| %>
+    <p><%= email.address %></p>
+  <% end %>
+<% else %>
+  <p>Заявок пока нет</p>
+<% end %>

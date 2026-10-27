@@ -1,79 +1,33 @@
 <h1><%= @post.title %></h1>
 
 <p>
-  Автор:
-  <%= @post.user.profile&.name.presence ||
-        "автор" %>
+  Автор: <%= @post.user.profile&.name.presence || "автор" %>
 </p>
-
-<% if user_signed_in? &&
-      (current_user == @post.user || current_user.admin?) %>
-  <p>
-    <strong>Статус:</strong>
-
-    <% if @post.status == "pending" %>
-      На модерации
-    <% elsif @post.status == "approved" %>
-      Одобрен
-    <% else %>
-      Отклонен
-    <% end %>
-  </p>
-<% end %>
 
 <p><%= simple_format(@post.body) %></p>
 
-<% if user_signed_in? && current_user == @post.user %>
-  <p>
-    <%= link_to "Редактировать пост",
-          edit_post_path(@post) %>
-  </p>
+<% if can?(:update, @post) %>
+  <p><%= link_to "Редактировать пост", edit_post_path(@post) %></p>
+<% end %>
 
+<% if can?(:destroy, @post) %>
   <%= button_to "Удалить пост",
         post_path(@post),
         method: :delete,
         data: { turbo_confirm: "Удалить этот пост?" } %>
 <% end %>
 
-<% if user_signed_in? && current_user.admin? &&
-      @post.status == "pending" %>
-
-  <%= button_to "Одобрить",
-        approve_post_path(@post),
-        method: :patch %>
-
-  <%= button_to "Отклонить",
-        reject_post_path(@post),
-        method: :patch %>
-<% end %>
-
 <hr>
 
-<% if @post.status == "approved" %>
-  <h2>Комментарии</h2>
+<h2>Комментарии</h2>
 
-  <% if @post.comments.any? %>
-    <%= render @post.comments %>
-  <% else %>
-    <p>Пока нет комментариев</p>
-  <% end %>
-
-  <% if user_signed_in? %>
-    <h3>Оставить комментарий</h3>
-    <%= render "comments/form" %>
-  <% else %>
-    <p>
-      <%= link_to "Войти", new_user_session_path %>,
-      чтобы оставить комментарий
-    </p>
-  <% end %>
+<% if @post.comments.any? %>
+  <%= render @post.comments %>
 <% else %>
-  <p>
-    Комментарии будут доступны
-    после публикации поста
-  </p>
+  <p>Пока нет комментариев</p>
 <% end %>
 
-<p>
-  <%= link_to "В ленту", posts_path %>
-</p>
+<h3>Оставить комментарий</h3>
+<%= render "comments/form" %>
+
+<p><%= link_to "В ленту", posts_path %></p>

@@ -8,10 +8,10 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
     @user = @profile.user
   end
 
-  test "guest can see profile" do
+  test "guest cannot see profile" do
     get profile_url(@profile)
 
-    assert_response :success
+    assert_redirected_to root_url
   end
 
   test "guest cannot edit profile" do

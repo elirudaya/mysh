@@ -3,43 +3,16 @@
 
 <h1>Лента</h1>
 
-<% if user_signed_in? %>
-  <h2>Написать пост</h2>
-  <%= render "form", post: @post %>
-
-  <p><%= link_to "Мои посты", mine_posts_path %></p>
-<% end %>
+<p><%= link_to "Написать пост", new_post_path %></p>
+<p><%= link_to "Мои посты", mine_posts_path %></p>
 
 <h2>Публикации</h2>
 
 <div id="posts">
-  <% if @feed_items.any? %>
-    <% @feed_items.each do |item| %>
-
-      <% if item.is_a?(Post) %>
-        <h2>Пост</h2>
-        <%= render item %>
-        <p><%= link_to "Читать пост", post_path(item) %></p>
-
-      <% elsif item.is_a?(Event) %>
-        <h2>Афиша</h2>
-        <h3><%= item.title %></h3>
-        <p><%= item.description %></p>
-        <p><%= link_to "Подробнее", event_path(item) %></p>
-
-      <% elsif item.is_a?(Checklist) %>
-        <h2>Гайд</h2>
-        <h3><%= item.title %></h3>
-        <p><%= truncate(item.content.to_s, length: 200) %></p>
-        <p><%= link_to "Читать гайд", checklist_path(item) %></p>
-
-      <% elsif item.is_a?(Place) %>
-        <h2>Место</h2>
-        <h3><%= item.name %></h3>
-        <p><%= item.description %></p>
-        <p><%= link_to "Подробнее", place_path(item) %></p>
-      <% end %>
-
+  <% if @posts.any? %>
+    <% @posts.each do |post| %>
+      <%= render post %>
+      <p><%= link_to "Читать пост", post_path(post) %></p>
       <hr>
     <% end %>
   <% else %>

@@ -1,24 +1,20 @@
-<h1>Посты на модерации</h1>
+<h1>Все посты</h1>
+
 <% if @posts.any? %>
   <% @posts.each do |post| %>
     <article>
-      <h2><%= post.title %></h2>
-      <p>
-        Автор: <%= post.user.email %>
-      </p>
+      <h2><%= link_to post.title, post_path(post) %></h2>
+      <p>Автор: <%= post.user.email %></p>
       <p><%= post.body %></p>
-      <p>Статус: На проверке</p>
-      <%= button_to "Одобрить",
-            approve_post_path(post),
-            method: :patch %>
-      <%= button_to "Отклонить",
-            reject_post_path(post),
-            method: :patch %>
+
+      <%= button_to "Удалить пост",
+            post_path(post),
+            method: :delete,
+            data: { turbo_confirm: "Удалить этот пост?" } %>
 
       <hr>
-
     </article>
   <% end %>
 <% else %>
-  <p>Сейчас нет постов для проверки</p>
+  <p>Постов пока нет</p>
 <% end %>

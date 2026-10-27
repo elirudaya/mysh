@@ -29,27 +29,6 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "admin can open events moderation" do
-    sign_in @admin
-
-    get admin_events_url
-    assert_response :success
-  end
-
-  test "admin can open guides moderation" do
-    sign_in @admin
-
-    get admin_guides_url
-    assert_response :success
-  end
-
-  test "admin can open places moderation" do
-    sign_in @admin
-
-    get admin_places_url
-    assert_response :success
-  end
-
   test "guest cannot open admin dashboard" do
     get admin_url
 

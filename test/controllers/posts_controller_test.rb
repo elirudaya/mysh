@@ -8,14 +8,16 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:one)
   end
 
-  test "should get index" do
+  test "should redirect guest from index to sign in" do
     get posts_url
-    assert_response :success
+
+    assert_redirected_to new_user_session_url
   end
 
-  test "should show approved post to guest" do
+  test "should redirect guest from post to sign in" do
     get post_url(@post)
-    assert_response :success
+
+    assert_redirected_to new_user_session_url
   end
 
   test "guest should be redirected to sign in" do
@@ -30,7 +32,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create pending post" do
+  test "should create approved post" do
     sign_in @user
 
     assert_difference("Post.count", 1) do
@@ -42,9 +44,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_equal "pending", Post.last.status
+    assert_equal "approved", Post.last.status
     assert_equal @user.id, Post.last.user_id
-    assert_redirected_to mine_posts_path
+    assert_redirected_to post_url(Post.last)
   end
 
   test "should get edit for own post" do
@@ -54,7 +56,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update own post and send to moderation" do
+  test "should update own post" do
     sign_in @user
 
     patch post_url(@post), params: {
@@ -64,9 +66,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_equal "pending", @post.reload.status
+    assert_equal "approved", @post.reload.status
     assert_equal "Изменённый заголовок", @post.title
-    assert_redirected_to mine_posts_path
+    assert_redirected_to post_url(@post)
   end
 
   test "should destroy own post" do

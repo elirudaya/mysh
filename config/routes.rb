@@ -2,31 +2,17 @@ Rails.application.routes.draw do
   get "admin", to: "admin#index", as: :admin
   get "admin/users", to: "admin#users", as: :admin_users
   get "admin/posts", to: "admin#posts", as: :admin_posts
-  get "admin/events", to: "admin#events", as: :admin_events
-  get "admin/guides", to: "admin#guides", as: :admin_guides
-  get "admin/places", to: "admin#places", as: :admin_places
+  get "admin/emails", to: "admin#emails", as: :admin_emails
   # get "admin/index"
   # get "admin/users"
   get "home/index"
   get "welcome/index"
-  resources :events
-  resources :checklists
-  resources :places
-  resources :trips
-  resources :subscriptions
-  resources :friendships
-  resources :user_interests
-  resources :interests
+
 
 
   resources :posts do
     collection do
       get :mine
-      get :review
-    end
-    member do
-      patch :approve
-      patch :reject
     end
       resources :comments, only: [ :create, :edit, :update, :destroy ]
   end

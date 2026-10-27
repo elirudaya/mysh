@@ -12,19 +12,6 @@
       <h2>
         <%= link_to post.title, post_path(post) %>
       </h2>
-
-      <p>
-        <strong>Статус:</strong>
-
-        <% if post.status == "pending" %>
-          На модерации
-        <% elsif post.status == "approved" %>
-          Одобрен
-        <% else %>
-          Отклонен
-        <% end %>
-      </p>
-
       <p>
         <%= link_to "Редактировать",
               edit_post_path(post) %>

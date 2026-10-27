@@ -4,10 +4,5 @@ class Post < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
-  validates :status, inclusion: {
-    in: %w[pending approved rejected]
-  }
-
-  scope :approved, -> { where(status: "approved") }
-  scope :pending, -> { where(status: "pending") }
+  validates :status, inclusion: { in: %w[pending approved rejected] }
 end

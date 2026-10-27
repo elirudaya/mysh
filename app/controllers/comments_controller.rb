@@ -7,12 +7,6 @@ class CommentsController < ApplicationController
     authorize! :read, @post
     authorize! :create, Comment
 
-    unless @post.status == "approved"
-      redirect_to posts_path,
-                  alert: "Этот пост еще не опубликован"
-      return
-    end
-
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
 
