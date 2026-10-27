@@ -1,5 +1,13 @@
 class WelcomeController < ApplicationController
   def index
+    if user_signed_in?
+      if current_user.admin?
+        return redirect_to admin_path
+      else
+        return redirect_to home_path
+      end
+    end
+
     @email = Email.new
   end
 
