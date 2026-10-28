@@ -1,80 +1,173 @@
-
 <main class="home-page">
   <section class="home-main">
-    <div class="home-main-text">
-      <p class="home-label">Медиа о жизни в новой стране</p>
+    <div class="home-cards">
+      <article class="home-card home-card-1">
+        <%= image_tag "nearest-places.svg", alt: "Места рядом" %>
+        <h3>Места рядом</h3>
+      </article>
 
-      <h1>Между здесь и там открывай мир сам</h1>
+      <article class="home-card home-card-2">
+        <%= image_tag "first-steps.svg", alt: "Первые шаги" %>
+        <h3>Первые шаги</h3>
+      </article>
 
-      <p>
-        Истории, гайды и люди, которые помогают освоиться
+      <article class="home-card home-card-3">
+        <%= image_tag "pers-experience.svg", alt: "Личный опыт" %>
+        <h3>Личный опыт</h3>
+      </article>
+
+      <article class="home-card home-card-4">
+        <%= image_tag "new-culture.svg", alt: "Новая культура" %>
+        <h3>Новая культура</h3>
+      </article>
+
+      <article class="home-card home-card-5">
+        <%= image_tag "city-life.svg", alt: "Жизнь в городе" %>
+        <h3>Жизнь в городе</h3>
+      </article>
+
+      <article class="home-card home-card-6">
+        <%= image_tag "community.svg", alt: "Общение" %>
+        <h3>Общение</h3>
+      </article>
+
+      <article class="home-card home-card-7">
+        <%= image_tag "our-people.svg", alt: "Свои люди" %>
+        <h3>Свои люди</h3>
+      </article>
+    </div>
+
+    <div class="home-content">
+      <p class="home-subtitle">
+        Медиа о жизни в новой стране или городе
       </p>
 
-      <%= link_to "Читать ленту", posts_path,
-            class: "home-button" %>
+      <h1 class="home-title">
+        Между
+        <%= image_tag "emoji-eyes.svg", class: "home-emoji", alt: "Глаза" %>
+        здесь и там<br>
+        открывай мир
+        <%= image_tag "emoji-globe.svg", class: "home-emoji", alt: "Глобус" %>
+        сам
+      </h1>
+
+      <p class="home-description">
+        Истории, гайды и люди, которые помогают освоиться
+      </p>
     </div>
   </section>
 
   <section class="home-about">
-    <h2>Что такое «между»?</h2>
-
-    <p>
-        Это пространство для тех, кто переезжает,
-        открывает новые города и ищет людей,
-        с которыми можно почувствовать себя дома.
-    </p>
-
-    <p>
-        Мы создаём место, где можно делиться
-        своим опытом, узнавать о жизни в других
-        городах и находить полезную информацию.
-    </p>
-  </section>
-
-  <section class="home-features">
-    <h2>Что можно делать на сайте?</h2>
-
-    <div class="home-cards">
-      <article class="home-card">
-        <h3>Читать истории</h3>
+    <div class="home-container home-about-content">
+      <div class="home-about-text">
+        <h2 class="home-section-title">
+          <%= image_tag "star-on-blue.svg", class: "home-section-icon", alt: "" %>
+          Что такое «между»?
+        </h2>
         <p>
-          Узнавать об опыте переезда других людей.
+          Медиа-сервис для людей, которые планируют переезд
+          или недавно оказались в&nbsp;новой стране/городе.
+          Платформа объединяет практические гайды,
+          локальные места, события, культурный контекст
+          и&nbsp;опыт других пользователей.
         </p>
-      </article>
 
-      <article class="home-card">
-        <h3>Делиться своим</h3>
         <p>
-          Публиковать собственные посты
-          и обсуждать их с другими.
+          Контент персонализируется по&nbsp;городу, интересам
+          и&nbsp;этапу адаптации. Сервис помогает не&nbsp;только
+          разобраться в&nbsp;бытовых вопросах, но&nbsp;и&nbsp;постепенно
+          включиться в&nbsp;локальную жизнь и&nbsp;найти своё окружение.
+          По&nbsp;мере адаптации пользователь может сам делиться
+          опытом и&nbsp;становиться частью сообщества.
         </p>
-      </article>
+      </div>
 
-      <article class="home-card">
-        <h3>Открывать новое</h3>
-        <p>
-          Читать гайды и узнавать
-          о событиях из афиши.
-        </p>
-      </article>
+      <div class="home-about-image">
+        <%= image_tag "arrows.svg", alt: "Иллюстрация проекта между" %>
+      </div>
     </div>
   </section>
 
-  <section class="home-bottom">
-    <h2>У каждого переезда своя история</h2>
+  <section class="home-features">
+    <div class="home-container">
+      <h2 class="home-section-title">
+        <%= image_tag "znak.svg", class: "home-section-icon", alt: "" %>
+        Что можно делать на нашем сайте?
+      </h2>
 
-    <p>
-      Возможно, твоя история поможет
-      кому-то почувствовать себя увереннее.
-    </p>
+      <div class="home-feature-cards">
+        <article class="home-feature-card">
+          <span class="home-feature-number">1</span>
+          <h3>Читать истории</h3>
+          <p>Узнать об&nbsp;опыте переезда других людей</p>
+        </article>
 
-    <% if user_signed_in? %>
-      <%= link_to "Написать пост", new_post_path,
-            class: "home-button" %>
-    <% else %>
-      <%= link_to "Присоединиться",
-            new_user_registration_path,
-            class: "home-button" %>
-    <% end %>
+        <article class="home-feature-card">
+          <span class="home-feature-number">2</span>
+          <h3>Делиться своими</h3>
+          <p>
+            Публиковать собственные посты
+            и&nbsp;обсуждать их&nbsp;с&nbsp;другими
+          </p>
+        </article>
+
+        <article class="home-feature-card">
+          <span class="home-feature-number">3</span>
+          <h3>Открывать новое</h3>
+          <p>
+            Читать гайды и&nbsp;узнавать
+            о&nbsp;событиях из&nbsp;афиши
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-story">
+    <div class="home-container home-story-content">
+      <div class="home-story-cards home-story-cards-left">
+        <article class="home-story-card home-story-card-1">
+          <%= image_tag "new-home.svg", alt: "Новый дом" %>
+          <h3>Обрети новый дом</h3>
+        </article>
+
+        <article class="home-story-card home-story-card-2">
+          <%= image_tag "new-experience.svg", alt: "Обмен опытом" %>
+          <h3>Обменивайся опытом с&nbsp;другими</h3>
+        </article>
+      </div>
+
+      <div class="home-story-text">
+        <h2>
+          У каждого
+          <%= image_tag "emoji-plane.svg",
+                class: "home-story-emoji",
+                alt: "Самолёт" %>
+          переезда<br>
+          своя интересная
+          <%= image_tag "emoji-suitcase.svg",
+                class: "home-story-emoji",
+                alt: "Чемодан" %>
+          история
+        </h2>
+
+        <p>
+          Возможно, твоя история поможет кому-то<br>
+          почувствовать себя увереннее
+        </p>
+      </div>
+
+      <div class="home-story-cards home-story-cards-right">
+        <article class="home-story-card home-story-card-3">
+          <%= image_tag "new-friends.svg", alt: "Новое окружение" %>
+          <h3>Найди новое окружение</h3>
+        </article>
+
+        <article class="home-story-card home-story-card-4">
+          <%= image_tag "new-locations.svg", alt: "Новые локации" %>
+          <h3>Изучай новые локации</h3>
+        </article>
+      </div>
+    </div>
   </section>
 </main>

@@ -1,43 +1,131 @@
+.site-header {
+  width: 100%;
+  background: #fff;
+}
+
 .site-menu {
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  gap: 24px;
-  padding: 20px 6%;
+  gap: 20px;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 80px;
+  margin: 0 auto;
+  padding: 0 2%;
+
+  a {
+    color: #111;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
 
 .site-menu-left {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  justify-self: start;
 }
 
 .site-menu-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  white-space: nowrap;
+  justify-self: center;
+
+  a {
+    font-size: 14px;
+    font-weight: 500;
+  }
 }
 
 .site-menu-right {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-self: end;
   gap: 24px;
-  white-space: nowrap;
-}
 
-@media (max-width: 1100px) {
-  .site-menu {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  a {
+    font-size: 14px;
+    font-weight: 500;
   }
 
-  .site-menu-left,
-  .site-menu-center,
+  form {
+    margin: 0;
+  }
+}
+
+.site-logo {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.site-logout {
+  padding: 9px 16px;
+  background: #007bfd;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: #0067d8;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    height: auto;
+  }
+
+  .site-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 65px;
+    height: auto;
+    padding: 10px;
+  }
+
+  .site-menu-left {
+    flex-shrink: 0;
+  }
+
+  .site-logo {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .site-menu-center {
+    flex-shrink: 0;
+  }
+
+  .site-menu-center a {
+    font-size: 12px;
+  }
+
   .site-menu-right {
-    justify-content: center;
-    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .site-menu-right a {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .site-menu-right form {
+    margin: 0;
+  }
+
+  .site-logout {
+    padding: 9px 10px;
+    font-size: 11px;
+    white-space: nowrap;
   }
 }

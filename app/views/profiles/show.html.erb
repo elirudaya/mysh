@@ -51,8 +51,20 @@
       <%= link_to "Редактировать профиль",
             edit_profile_path(@profile) %>
       |
-    <% end %>
+    <% end %>  
 
-    <%= link_to "На главную", home_path %>
+    <% if user_signed_in? &&
+          current_user.admin? &&
+          params[:from] == "admin" %>
+
+      <%= link_to "Назад к пользователям",
+            admin_users_path %>
+
+    <% else %>
+
+      <%= link_to "Назад к сайту",
+            home_path %>
+
+    <% end %>
   </nav>
 </main>

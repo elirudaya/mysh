@@ -1,0 +1,55 @@
+<%= form_with model: [:admin, event], class: "admin-post-form" do |form| %>
+  <% if event.errors.any? %>
+    <div class="admin-form-errors">
+      <% event.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="admin-form-field">
+    <%= form.label :title, "Название" %>
+    <%= form.text_field :title, required: true %>
+  </div>
+
+  <div class="admin-form-field">
+    <%= form.label :description, "Описание" %>
+    <%= form.text_area :description, rows: 5, required: true %>
+  </div>
+
+  <div class="admin-form-field">
+    <%= form.label :date, "Дата и время" %>
+    <%= form.datetime_local_field :date, required: true %>
+  </div>
+
+  <div class="admin-form-field">
+    <%= form.label :city, "Город" %>
+    <%= form.text_field :city, required: true %>
+  </div>
+
+  <div class="admin-form-field">
+    <%= form.label :address, "Адрес" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="admin-form-field">
+    <%= form.label :capacity, "Количество мест" %>
+    <%= form.number_field :capacity, min: 1 %>
+  </div>
+
+  <div class="admin-form-field">
+    <%= form.label :image, "Добавить обложку" %>
+    <%= form.file_field :image, accept: "image/jpeg,image/png,image/webp" %>
+
+    <% if event.image.attached? %>
+      <%= image_tag event.image, class: "admin-image-preview" %>
+    <% end %>
+  </div>
+
+  <div class="admin-form-actions">
+    <%= form.submit "Сохранить", class: "admin-save-button" %>
+    <%= link_to "Назад к мероприятиям",
+        admin_events_path,
+        class: "admin-back-button" %>
+  </div>
+<% end %>

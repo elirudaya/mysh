@@ -1,0 +1,48 @@
+<div class="admin-content-inner">
+  <h1 class="admin-page-title">
+    <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+    Мероприятие
+  </h1>
+
+  <section class="admin-card admin-show-card">
+    <h2><%= @event.title %></h2>
+
+    <% if @event.image.attached? %>
+      <%= image_tag @event.image, class: "admin-post-cover" %>
+    <% end %>
+
+    <p><strong>Дата и время:</strong>
+      <%= @event.date.strftime("%d.%m.%Y в %H:%M") %>
+    </p>
+
+    <p><strong>Город:</strong> <%= @event.city %></p>
+
+    <% if @event.address.present? %>
+      <p><strong>Адрес:</strong> <%= @event.address %></p>
+    <% end %>
+
+    <% if @event.capacity.present? %>
+      <p><strong>Количество мест:</strong> <%= @event.capacity %></p>
+    <% end %>
+
+    <div class="admin-post-body">
+      <%= simple_format(@event.description) %>
+    </div>
+
+    <div class="admin-form-actions">
+      <%= link_to "Редактировать",
+          edit_admin_event_path(@event),
+          class: "admin-save-button" %>
+
+      <%= button_to "Удалить мероприятие",
+          admin_event_path(@event),
+          method: :delete,
+          data: { turbo_confirm: "Удалить мероприятие?" },
+          class: "admin-delete-button" %>
+
+      <%= link_to "Назад к мероприятиям",
+          admin_events_path,
+          class: "admin-back-button" %>
+    </div>
+  </section>
+</div>

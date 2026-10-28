@@ -1,39 +1,44 @@
-<main>
-  <h1>Пользователи</h1>
-  <p>
-    Всего зарегистрировано:
-    <%= @users.count %>
-  </p>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>Имя</th>
-        <th>Роль</th>
-        <th>Профиль</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.id %></td>
-          <td><%= user.email %></td>
-          <td>
-            <%= user.profile&.name.presence || "Не указано" %>
-          </td>
-          <td>
-            <%= user.admin? ? "Администратор" : "Пользователь" %>
-          </td>
-          <td>
-            <% if user.profile %>
-              <%= link_to "Открыть", profile_path(user.profile) %>
-            <% else %>
-              Нет профиля
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</main>
+<div class="admin-content-inner">
+  <h1 class="admin-page-title">
+    <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+    Пользователи
+  </h1>
+
+  <section class="admin-card">
+    <h2>Все пользователи</h2>
+
+    <p>Всего зарегистрировано: <%= @users.count %></p>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Имя</th>
+            <th>Роль</th>
+            <th>Профиль</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.email %></td>
+              <td><%= user.profile&.name.presence || "Не указано" %></td>
+              <td><%= user.admin? ? "Администратор" : "Пользователь" %></td>
+              <td>
+                <% if user.profile %>
+                  <%= link_to "Открыть", profile_path(user.profile) %>
+                <% else %>
+                  Нет профиля
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

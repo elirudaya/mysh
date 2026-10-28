@@ -1,0 +1,12 @@
+<div class="admin-content-inner">
+  <div class="admin-create-header">
+    <h1 class="admin-page-title">
+      <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+      Редактировать мероприятие
+    </h1>
+  </div>
+
+  <section class="admin-card admin-form-card">
+    <%= render "form", event: @event %>
+  </section>
+</div>

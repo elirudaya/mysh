@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Управление</title>
+    <title>Управление — между</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+
   <body>
     <div class="admin-layout">
       <%= render "admin/menu" %>
+
       <main class="admin-content">
-        <% if notice.present? %>
-          <p><%= notice %></p>
+        <% if notice.present? && notice != "Signed in successfully." %>
+          <p class="admin-flash"><%= notice %></p>
         <% end %>
         <% if alert.present? %>
-          <p><%= alert %></p>
+          <p class="admin-flash"><%= alert %></p>
         <% end %>
+
         <%= yield %>
       </main>
     </div>

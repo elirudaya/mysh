@@ -1,0 +1,36 @@
+<footer class="site-footer">
+  <div class="site-footer-content">
+    <div class="site-footer-about">
+      <h2>между</h2>
+      <p>Медиа о переезде, адаптации и жизни между культурами</p>
+
+      <h3>Команда:</h3>
+      <div class="site-team">
+        <span>Рудая Элина</span>
+        <span>Разработчик</span>
+        <span>Орлова Софья</span>
+        <span>Дизайнер</span>
+      </div>
+    </div>
+
+    <div class="site-footer-navigation">
+      <% unless controller_name == "welcome" %>
+        <h4>Навигация</h4>
+        <%= link_to "О проекте", home_path %>
+      <% end %>
+    </div>
+
+    <div class="site-footer-contact">
+      <h4>Остаёмся на связи</h4>
+      <a href="#">Telegram ↗</a>
+      <a href="#">ВКонтакте ↗</a>
+      <a href="#">Написать редакции ↗</a>
+    </div>
+  </div>
+
+  <div class="site-footer-links">
+    <span>© <%= Date.current.year %> между. Все права защищены.</span>
+    <a href="#">Политика конфиденциальности</a>
+    <a href="#">Условия использования</a>
+  </div>
+</footer>

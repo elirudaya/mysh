@@ -1,8 +1,6 @@
-
-<%= form_with(model: post) do |form| %>
-
+<%= form_with(model: post, class: "admin-post-form") do |form| %>
   <% if post.errors.any? %>
-    <div>
+    <div class="admin-form-errors">
       <p>Проверь данные:</p>
 
       <ul>
@@ -13,16 +11,37 @@
     </div>
   <% end %>
 
-  <p>
+  <div class="admin-form-field">
     <%= form.label :title, "Заголовок" %>
-    <%= form.text_field :title, required: true %>
-  </p>
+    <%= form.text_field :title,
+        placeholder: "О чем хочешь рассказать?",
+        required: true %>
+  </div>
 
-  <p>
-    <%= form.label :body, "Текст поста" %>
-    <%= form.text_area :body, rows: 10, required: true %>
-  </p>
+  <div class="admin-form-field">
+    <%= form.label :body, "Текст публикации" %>
+    <%= form.text_area :body,
+        placeholder: "Расскажи свою историю...",
+        rows: 5,
+        required: true %>
+  </div>
 
-  <%= form.submit "Сохранить" %>
+  <div class="admin-form-field">
+    <%= form.label :image, "Добавить обложку" %>
+    <div class="admin-image-upload">
+      <%= form.file_field :image, accept: "image/jpeg,image/png,image/webp" %>
 
+      <% if post.persisted? && post.image.attached? %>
+        <%= image_tag post.image, class: "admin-image-preview" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="admin-form-actions">
+    <%= form.submit "Сохранить", class: "admin-save-button" %>
+
+    <%= link_to "Назад к постам",
+        current_user.admin? ? admin_posts_path : mine_posts_path,
+        class: "admin-back-button" %>
+  </div>
 <% end %>

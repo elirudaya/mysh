@@ -1,21 +1,31 @@
-<h1>Заявки с заглушки</h1>
+<div class="admin-content-inner">
+  <h1 class="admin-page-title">
+    <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+    Заявки
+  </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Дата отправки</th>
-      <th>Время отправки</th>
-    </tr>
-  </thead>
+  <section class="admin-card">
 
-  <tbody>
-    <% @emails.each do |email| %>
-      <tr>
-        <td><%= email.address %></td>
-        <td><%= email.created_at.strftime("%d.%m.%Y") %></td>
-        <td><%= email.created_at.strftime("%H:%M:%S") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Дата отправки</th>
+            <th>Время отправки</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @emails.each do |email| %>
+            <tr>
+              <td><%= email.address %></td>
+              <td><%= email.created_at.in_time_zone("Europe/Moscow").strftime("%d.%m.%Y") %></td>
+              <td><%= email.created_at.in_time_zone("Europe/Moscow").strftime("%H:%M:%S") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

@@ -1,53 +1,97 @@
+<main class="welcome-page">
+  <section class="welcome-main">
+    <div class="welcome-content">
+      <div class="welcome-intro">
+        <p class="welcome-subtitle">
+          Медиа о жизни в новой стране или городе
+        </p>
 
-<main class="welcome">
-  <div class="welcome-content">
-    <h1>между</h1>
+        <h1 class="welcome-title">
+          Между
+          <%= image_tag "emoji-eyes.svg", class: "welcome-emoji", alt: "👀" %>
+          здесь и там<br>
+          открывай мир
+          <%= image_tag "emoji-globe.svg", class: "welcome-emoji", alt: "🌍" %>
+          сам
+        </h1>
 
-    <h2>Переезды начинаются со знакомства</h2>
-
-    <p>
-      Медиа-сервис для тех, кто переезжает,
-      знакомится с новыми городами и ищет своих.
-    </p>
-
-    <p>
-      Оставь почту, чтобы первым узнать о запуске проекта.
-    </p>
-
-    <%= form_with model: @email, url: emails_path do |form| %>
-
-      <% if @email.errors.any? %>
-        <div class="errors">
-          <p>Проверь данные:</p>
-
-          <ul>
-            <% @email.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="field">
-        <%= form.label :address, "Электронная почта" %>
-
-        <%= form.email_field :address,
-              required: true,
-              placeholder: "example@mail.com" %>
+        <p class="welcome-description">
+          Истории, гайды и люди, которые помогают освоиться
+        </p>
       </div>
 
-      <div class="field">
-        <%= form.check_box :consent, required: true %>
+      <div class="welcome-subscribe">
+        <h2>Оставь почту, чтобы первым узнать о запуске проекта</h2>
+        <%= form_with model: @email, url: emails_path, class: "welcome-form", data: { turbo: false } do |form| %>
+          <%= form.label :address, "Ваша электронная почта", class: "welcome-label" %>
 
-        <%= form.label :consent,
-              "Я согласен(на) на обработку персональных данных" %>
+          <div class="welcome-form-row">
+            <%= form.email_field :address,
+                value: "",
+                autocomplete: "off",
+                placeholder: "you@example.com",
+                required: true,
+                class: "welcome-input" %>
+            <%= form.submit "Подписаться", class: "welcome-submit" %>
+
+            <%= link_to "Перейти на сайт", home_path, class: "welcome-enter" %>
+          </div>
+
+          <label class="welcome-checkbox">
+            <%= form.check_box :consent, required: true %>
+            <span>
+              Я даю согласие на обработку персональных данных и ознакомлен(а)
+              с Политикой конфиденциальности
+            </span>
+          </label>
+
+          <label class="welcome-checkbox">
+            <%= check_box_tag :newsletter_agreement, "1" %>
+            <span>
+              Я согласен(на) получать информационные и рекламные рассылки
+              от медиа «между»
+            </span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="welcome-cards">
+      <div class="welcome-card-column welcome-cards-left">
+        <article class="welcome-card">
+          <%= image_tag "first-steps.svg", alt: "Первые шаги" %>
+          <h3>Первые шаги</h3>
+        </article>
+
+        <article class="welcome-card">
+          <%= image_tag "our-people.svg", alt: "Свои люди" %>
+          <h3>Свои люди</h3>
+        </article>
+
+        <article class="welcome-card">
+          <%= image_tag "community.svg", alt: "Сообщество" %>
+          <h3>Сообщество</h3>
+        </article>
       </div>
 
-      <%= form.submit "Подписаться" %>
-    <% end %>
+      <div class="welcome-card-column welcome-cards-right">
+        <article class="welcome-card">
+          <%= image_tag "new-culture.svg", alt: "Новая культура" %>
+          <h3>Новая культура</h3>
+        </article>
 
-    <p class="site-link">
-      <%= link_to "Перейти на сайт", home_path %>
-    </p>
-  </div>
+        <article class="welcome-card">
+          <%= image_tag "nearest-places.svg", alt: "Места рядом" %>
+          <h3>Места рядом</h3>
+        </article>
+
+        <article class="welcome-card">
+          <%= image_tag "pers-experience.svg", alt: "Личный опыт" %>
+          <h3>Личный опыт</h3>
+        </article>
+      </div>
+    </div>
+  </section>
 </main>
+
+

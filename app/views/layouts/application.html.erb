@@ -27,7 +27,11 @@
     <% unless controller_name == "welcome" %>
       <%= render "application/menubar" %>
     <% end %>
+
     <%= yield %>
-    
+
+    <% if controller_name.in?(%w[welcome home sessions]) %>
+      <%= render "application/footer" %>
+    <% end %>
   </body>
 </html>

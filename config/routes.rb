@@ -3,21 +3,20 @@ Rails.application.routes.draw do
   get "admin/users", to: "admin#users", as: :admin_users
   get "admin/posts", to: "admin#posts", as: :admin_posts
   get "admin/emails", to: "admin#emails", as: :admin_emails
-  # get "admin/index"
-  # get "admin/users"
+
   get "home/index"
   get "welcome/index"
-
-
 
   resources :posts do
     collection do
       get :mine
     end
-      resources :comments, only: [ :create, :edit, :update, :destroy ]
+
+    resources :comments, only: [ :create, :edit, :update, :destroy ]
   end
 
   resources :profiles, only: [ :show, :edit, :update ]
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -33,4 +32,8 @@ Rails.application.routes.draw do
   post "emails", to: "welcome#create", as: :emails
   get "home", to: "home#index", as: :home
   root "welcome#index"
+
+  scope "/admin", as: "admin" do
+    resources :events
+  end
 end

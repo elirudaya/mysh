@@ -1,36 +1,109 @@
-<h1>Панель администратора</h1>
+<div class="admin-content-inner">
+  <h1 class="admin-page-title">
+    <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+    Панель управления
+  </h1>
 
-<h2>Статистика</h2>
+  <section class="admin-card">
+    <h2>Статистика</h2>
 
-<ul>
-  <li>Пользователей: <strong><%= @users_count %></strong></li>
-  <li>Постов: <strong><%= @posts_count %></strong></li>
-  <li>Заявок с заглушки: <strong><%= @emails_count %></strong></li>
-</ul>
+    <div class="admin-stats">
+      <div class="admin-stat">
+        <span>Пользователей:</span>
+        <span><%= @users_count %></span>
+      </div>
 
-<hr>
+      <div class="admin-stat">
+        <span>Постов:</span>
+        <span><%= @posts_count %></span>
+      </div>
 
-<h2>Последние посты</h2>
+      <div class="admin-stat">
+        <span>Заявок с заглушки:</span>
+        <span><%= @emails_count %></span>
+      </div>
+    </div>
+  </section>
 
-<% @posts.each do |post| %>
-  <p>
-    <%= link_to post.title, post_path(post) %>
-    — <%= post.user.email %>
-  </p>
-<% end %>
+  <section class="admin-card">
+    <h2>Последние посты</h2>
 
-<p><%= link_to "Все посты", admin_posts_path %></p>
+    <% if @posts.any? %>
+      <div class="admin-table-wrap admin-recent-posts">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Автор</th>
+            </tr>
+          </thead>
 
-<hr>
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr>
+                <td><%= link_to post.title, post_path(post) %></td>
+                <td><%= post.user.email %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="admin-empty">Постов пока нет</p>
+    <% end %>
 
-<h2>Последние пользователи</h2>
+    <%= link_to admin_posts_path, class: "admin-card-link" do %>
+      Перейти к постам
+      <%= image_tag "litl-arrow.svg", alt: "" %>
+    <% end %>
+  </section>
 
-<% @users.each do |user| %>
-  <p>
-    <%= user.email %>
-    — <%= user.admin? ? "Администратор" : "Пользователь" %>
-  </p>
-<% end %>
+  <section class="admin-card">
+    <h2>Последние пользователи</h2>
 
-<p><%= link_to "Все пользователи", admin_users_path %></p>
-<p><%= link_to "Заявки с заглушки", admin_emails_path %></p>
+    <% if @users.any? %>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Имя</th>
+              <th>Роль</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><%= user.profile&.name.presence || "Не указано" %></td>
+                <td><%= user.admin? ? "Администратор" : "Пользователь" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="admin-empty">Пользователей пока нет</p>
+    <% end %>
+
+    <%= link_to admin_users_path, class: "admin-card-link" do %>
+      Все пользователи
+      <%= image_tag "litl-arrow.svg", alt: "" %>
+    <% end %>
+  </section>
+
+  <section class="admin-card">
+    <h2>Заявки с заглушки</h2>
+
+    <div class="admin-stat">
+      <span>Всего заявок:</span>
+      <span><%= @emails_count %></span>
+    </div>
+
+    <%= link_to admin_emails_path, class: "admin-card-link" do %>
+      Посмотреть заявки
+      <%= image_tag "litl-arrow.svg", alt: "" %>
+    <% end %>
+  </section>
+</div>

@@ -1,0 +1,68 @@
+
+<main class="login-page">
+  <div class="login-container">
+    <div class="login-left">
+      <p class="login-subtitle">
+        Медиа о жизни в новой стране или городе
+      </p>
+
+      <div class="login-cards">
+        <div class="login-card login-card-1">
+          <%= image_tag "new-culture.svg", alt: "Новая культура" %>
+          <p>Новая культура</p>
+        </div>
+
+        <div class="login-card login-card-2">
+          <%= image_tag "nearest-places.svg", alt: "Жизнь в городе" %>
+          <p>Жизнь в городе</p>
+        </div>
+
+        <div class="login-card login-card-3">
+          <%= image_tag "our-people.svg", alt: "Свои люди" %>
+          <p>Свои люди</p>
+        </div>
+      </div>
+
+      <h1 class="login-title">
+        Ближе к
+        <%= image_tag "emoji-home.svg", class: "login-emoji", alt: "🏠" %>
+        своей<br>
+        новой жизни
+      </h1>
+
+      <p class="login-description">
+        Войдите в аккаунт, и пусть новый дом станет ближе
+      </p>
+    </div>
+
+    <div class="login-right">
+      <h2>Вход</h2>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>
+
+
+        <div class="login-field">
+          <%= f.label :email, "Электронная почта" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "you@example.com", required: true %>
+        </div>
+
+        <div class="login-field">
+          <%= f.label :password, "Пароль" %>
+          <%= f.password_field :password, autocomplete: "current-password", placeholder: "Введите пароль", required: true %>
+        </div>
+
+        <div class="login-checkbox">
+          <%= check_box_tag :privacy_agreement, "1", false, required: true %>
+          <%= label_tag :privacy_agreement, "Я принимаю Условия использования и даю согласие на обработку персональных данных в соответствии с Политикой конфиденциальности." %>
+        </div>
+
+        <div class="login-checkbox">
+          <%= check_box_tag :newsletter_agreement, "1", false %>
+          <%= label_tag :newsletter_agreement, "Хочу получать полезные материалы и новости «между»" %>
+        </div>
+
+        <%= f.submit "Войти", class: "login-button" %>
+      <% end %>
+    </div>
+  </div>
+</main>

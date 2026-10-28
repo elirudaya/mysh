@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  layout :posts_layout
+
   before_action :authenticate_user!
   before_action :set_post, only: [ :show, :edit, :update, :destroy ]
 
@@ -26,6 +28,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     @post.status = "approved"
+
     authorize! :create, @post
 
     if @post.save
@@ -61,6 +64,10 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image)
+  end
+
+  def posts_layout
+    current_user&.admin? ? "admin" : "application"
   end
 end

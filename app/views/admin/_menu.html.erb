@@ -1,20 +1,65 @@
+
+<details class="admin-mobile-menu">
+  <summary class="admin-mobile-header">
+    <span class="admin-mobile-logo">между</span>
+
+    <span class="admin-burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </summary>
+
+  <div class="admin-mobile-panel">
+    <nav class="admin-nav">
+      <p class="admin-nav-title">Панель управления</p>
+
+      <div class="admin-nav-group">
+        <%= link_to "Главная", admin_path, class: "admin-nav-link #{'active' if current_page?(admin_path)}" %>
+        <%= link_to "Пользователи", admin_users_path, class: "admin-nav-link #{'active' if current_page?(admin_users_path)}" %>
+        <%= link_to "Заявки", admin_emails_path, class: "admin-nav-link #{'active' if current_page?(admin_emails_path)}" %>
+      </div>
+
+      <p class="admin-nav-title">Контент</p>
+
+      <div class="admin-nav-group">
+        <%= link_to "Посты", admin_posts_path, class: "admin-nav-link #{'active' if current_page?(admin_posts_path) || controller_name == 'posts'}" %>
+        <%= link_to "Мероприятия", admin_events_path, class: "admin-nav-link #{'active' if controller_name == 'events'}" %>
+      </div>
+    </nav>
+
+    <div class="admin-sidebar-bottom">
+      <%= link_to "Перейти на сайт", home_path, class: "admin-site-link" %>
+      <p><%= current_user.email %></p>
+      <%= button_to "Выйти", destroy_user_session_path, method: :delete, class: "admin-logout" %>
+    </div>
+  </div>
+</details>
+
+
 <aside class="admin-sidebar">
   <h2>между</h2>
-  <p>Панель управления</p>
 
-  <nav>
-    <p><%= link_to "Главная", admin_path %></p>
-    <p><%= link_to "Пользователи", admin_users_path %></p>
-    <p><%= link_to "Посты", admin_posts_path %></p>
-    <p><%= link_to "Заявки", admin_emails_path %></p>
+  <nav class="admin-nav">
+    <p class="admin-nav-title">Панель управления</p>
+
+    <div class="admin-nav-group">
+      <%= link_to "Главная", admin_path, class: "admin-nav-link #{'active' if current_page?(admin_path)}" %>
+      <%= link_to "Пользователи", admin_users_path, class: "admin-nav-link #{'active' if current_page?(admin_users_path)}" %>
+      <%= link_to "Заявки", admin_emails_path, class: "admin-nav-link #{'active' if current_page?(admin_emails_path)}" %>
+    </div>
+
+    <p class="admin-nav-title">Контент</p>
+
+    <div class="admin-nav-group">
+      <%= link_to "Посты", admin_posts_path, class: "admin-nav-link #{'active' if current_page?(admin_posts_path) || controller_name == 'posts'}" %>
+      <%= link_to "Мероприятия", admin_events_path, class: "admin-nav-link #{'active' if controller_name == 'events'}" %>
+    </div>
   </nav>
 
   <div class="admin-sidebar-bottom">
-    <p><%= link_to "Перейти на сайт", home_path %></p>
+    <%= link_to "Перейти на сайт", home_path, class: "admin-site-link" %>
     <p><%= current_user.email %></p>
-
-    <%= button_to "Выйти",
-          destroy_user_session_path,
-          method: :delete %>
+    <%= button_to "Выйти", destroy_user_session_path, method: :delete, class: "admin-logout" %>
   </div>
 </aside>

@@ -1,33 +1,69 @@
-<h1><%= @post.title %></h1>
+<% if current_user.admin? %>
+  <div class="admin-content-inner">
+    <h1 class="admin-page-title">
+      <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+      Просмотр поста
+    </h1>
 
-<p>
-  Автор: <%= @post.user.profile&.name.presence || "автор" %>
-</p>
+    <section class="admin-card admin-show-card">
+      <h2><%= @post.title %></h2>
 
-<p><%= simple_format(@post.body) %></p>
+      <p class="admin-post-author">
+        Автор: <%= @post.user.email %>
+      </p>
 
-<% if can?(:update, @post) %>
-  <p><%= link_to "Редактировать пост", edit_post_path(@post) %></p>
-<% end %>
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, class: "admin-post-cover" %>
+      <% end %>
 
-<% if can?(:destroy, @post) %>
-  <%= button_to "Удалить пост",
+      <div class="admin-post-body">
+        <%= simple_format(@post.body) %>
+      </div>
+
+      <div class="admin-form-actions">
+        <% if can?(:update, @post) %>
+          <%= link_to "Редактировать",
+              edit_post_path(@post),
+              class: "admin-save-button" %>
+        <% end %>
+
+        <% if can?(:destroy, @post) %>
+          <%= button_to "Удалить",
+              post_path(@post),
+              method: :delete,
+              data: { turbo_confirm: "Удалить этот пост?" },
+              class: "admin-delete-button" %>
+        <% end %>
+
+        <%= link_to "Вернуться к постам",
+            admin_posts_path,
+            class: "admin-back-button" %>
+      </div>
+    </section>
+  </div>
+<% else %>
+  <h1><%= @post.title %></h1>
+
+  <p>
+    Автор: <%= @post.user.profile&.name.presence || "автор" %>
+  </p>
+
+  <% if @post.image.attached? %>
+    <%= image_tag @post.image, class: "admin-post-cover" %>
+  <% end %>
+
+  <%= simple_format(@post.body) %>
+
+  <% if can?(:update, @post) %>
+    <p><%= link_to "Редактировать пост", edit_post_path(@post) %></p>
+  <% end %>
+
+  <% if can?(:destroy, @post) %>
+    <%= button_to "Удалить пост",
         post_path(@post),
         method: :delete,
         data: { turbo_confirm: "Удалить этот пост?" } %>
+  <% end %>
+
+  <p><%= link_to "В ленту", posts_path %></p>
 <% end %>
-
-<hr>
-
-<h2>Комментарии</h2>
-
-<% if @post.comments.any? %>
-  <%= render @post.comments %>
-<% else %>
-  <p>Пока нет комментариев</p>
-<% end %>
-
-<h3>Оставить комментарий</h3>
-<%= render "comments/form" %>
-
-<p><%= link_to "В ленту", posts_path %></p>

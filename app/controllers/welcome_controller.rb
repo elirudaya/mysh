@@ -15,8 +15,9 @@ class WelcomeController < ApplicationController
     @email = Email.new(email_params)
 
     if @email.save
-      redirect_to root_path, notice: "Благодарим за подписку!"
+      redirect_to root_path, notice: "Благодарим за подписку!", status: :see_other
     else
+      flash.now[:alert] = @email.errors.full_messages.to_sentence
       render :index, status: :unprocessable_content
     end
   end

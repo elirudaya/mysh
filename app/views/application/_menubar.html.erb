@@ -1,37 +1,22 @@
-<nav class="site-menu">
+<header class="site-header">
+  <nav class="site-menu">
+    <div class="site-menu-left">
+      <%= link_to "между", home_path, class: "site-logo" %>
+    </div>
 
-  <div class="site-menu-left">
-    <%= link_to "между", home_path,
-          class: "site-logo" %>
-  </div>
+    <div class="site-menu-center">
+      <%= link_to "О проекте", home_path %>
+    </div>
 
-  <div class="site-menu-center">
-    <%= link_to "Главная", home_path %>
-    <%= link_to "Лента", posts_path %>
-  </div>
+    <div class="site-menu-right">
+      <% if user_signed_in? && current_user.admin? %>
+        <%= link_to "Управление", admin_path, class: "site-admin-link" %>
 
-  <div class="site-menu-right">
-    <% if user_signed_in? %>
-      <% if current_user.admin? %>
-        <%= link_to "Управление", admin_path %>
+        <%= button_to "Выйти",
+              destroy_user_session_path,
+              method: :delete,
+              class: "site-logout" %>
       <% end %>
-      <% if current_user.profile %>
-        <%= link_to "Профиль",
-              profile_path(current_user.profile) %>
-      <% end %>
-      <%= button_to "Выйти",
-            destroy_user_session_path,
-            method: :delete,
-            class: "site-logout" %>
-    <% else %>
-      <%= link_to "Войти",
-            new_user_session_path %>
-      <%= link_to "Регистрация",
-            new_user_registration_path,
-            class: "site-register" %>
-    <% end %>
-  </div>
-
-</nav>
-
-<hr>
+    </div>
+  </nav>
+</header>

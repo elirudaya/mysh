@@ -1,20 +1,40 @@
-<h1>Все посты</h1>
+<div class="admin-content-inner">
+  <div class="admin-posts-header">
+    <h1 class="admin-page-title">
+      <%= image_tag "admin-panel.svg", class: "admin-title-image", alt: "" %>
+      Посты
+    </h1>
 
-<% if @posts.any? %>
-  <% @posts.each do |post| %>
-    <article>
-      <h2><%= link_to post.title, post_path(post) %></h2>
-      <p>Автор: <%= post.user.email %></p>
-      <p><%= post.body %></p>
+    <%= link_to "Добавить пост",
+        new_post_path,
+        class: "admin-add-button" %>
+  </div>
 
-      <%= button_to "Удалить пост",
-            post_path(post),
-            method: :delete,
-            data: { turbo_confirm: "Удалить этот пост?" } %>
+  <section class="admin-card">
+    <h2>Все посты</h2>
 
-      <hr>
-    </article>
-  <% end %>
-<% else %>
-  <p>Постов пока нет</p>
-<% end %>
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <article class="admin-post">
+          <h2><%= link_to post.title, post_path(post) %></h2>
+
+          <p>Автор: <%= post.user.email %></p>
+
+          <% if post.image.attached? %>
+            <%= image_tag post.image, class: "admin-list-image" %>
+          <% end %>
+
+          <p><%= truncate(post.body, length: 250) %></p>
+
+          <%= button_to "Удалить пост",
+              post_path(post),
+              method: :delete,
+              data: { turbo_confirm: "Удалить этот пост?" },
+              class: "admin-delete-button" %>
+        </article>
+      <% end %>
+    <% else %>
+      <p class="admin-empty">Постов пока нет</p>
+    <% end %>
+  </section>
+</div>

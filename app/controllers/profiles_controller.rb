@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
     if user_signed_in? && current_user == @profile.user
       @posts = @profile.user.posts.order(created_at: :desc)
     else
-      @posts = @profile.user.posts.approved.order(created_at: :desc)
+      @posts = @profile.user.posts.where(status: "approved").order(created_at: :desc)
     end
   end
 
